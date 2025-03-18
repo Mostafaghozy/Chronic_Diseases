@@ -5,6 +5,7 @@ import 'package:chronic_diseases/ui/screen/OnBoarding/SymptomChecker.dart';
 import 'package:chronic_diseases/ui/screen/OnBoarding/WelcomeToMediva.dart';
 import 'package:chronic_diseases/ui/screen/OnBoarding/logo_screen.dart';
 import 'package:chronic_diseases/ui/screen/login%20or%20sign%20up/NewPassword.dart';
+import 'package:chronic_diseases/ui/screen/test.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const NewPassword(),
+      home:  PasswordResetScreen(),
     );
   }
 }
