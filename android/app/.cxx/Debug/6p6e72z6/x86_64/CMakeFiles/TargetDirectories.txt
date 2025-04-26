@@ -1,0 +1,2 @@
+C:/Users/musta/StudioProjects/Chronic_Diseases/android/app/.cxx/Debug/6p6e72z6/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/musta/StudioProjects/Chronic_Diseases/android/app/.cxx/Debug/6p6e72z6/x86_64/CMakeFiles/rebuild_cache.dir

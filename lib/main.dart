@@ -1,33 +1,45 @@
-import 'package:chronic_diseases/ui/screen/OnBoarding/HealthCareProviders.dart';
-import 'package:chronic_diseases/ui/screen/OnBoarding/HealthTracking.dart';
-import 'package:chronic_diseases/ui/screen/OnBoarding/SignUpScreen.dart';
-import 'package:chronic_diseases/ui/screen/OnBoarding/SymptomChecker.dart';
-import 'package:chronic_diseases/ui/screen/OnBoarding/WelcomeToMediva.dart';
-import 'package:chronic_diseases/ui/screen/OnBoarding/logo_screen.dart';
-import 'package:chronic_diseases/ui/screen/login%20or%20sign%20up/NewPassword.dart';
-import 'package:chronic_diseases/ui/screen/test.dart';
+import 'package:chronic_diseases/models/ChangePassword/cubit.dart';
+import 'package:chronic_diseases/models/Login/cubit.dart';
+import 'package:chronic_diseases/models/resetPassword/cubit.dart';
+import 'package:chronic_diseases/ui/screen/Auth/SignUp/healthCarePr.dart';
+import 'package:chronic_diseases/ui/screen/Auth/SignUp/healthcareInformation.dart';
+import 'package:chronic_diseases/ui/screen/Auth/SignUp/patient.dart';
+import 'package:chronic_diseases/ui/screen/Auth/login/LoginScreen.dart';
+import 'package:chronic_diseases/ui/screen/Auth/ResetPassword/resetPassword.dart';
+import 'package:chronic_diseases/ui/screen/home_page_view.dart';
+import 'package:chronic_diseases/ui/screen/notification_page_view.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(
+      // DevicePreview(
+      //   enabled: !kReleaseMode,
+      //   builder: (context) => MyApp(),
+      // ),
+      const MyApp(),
+    );
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => LoginCubit()),
+        BlocProvider(create: (_) => ForgetPasswordCubit()),
+        BlocProvider(create: (_) => ChangePasswordCubit()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: HomePageView(),
       ),
-      home:  PasswordResetScreen(),
     );
   }
 }
-
-// var h = MediaQuery.of(context).size.height;
-// log(h.toString());

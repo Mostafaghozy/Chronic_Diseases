@@ -1,0 +1,2 @@
+C:/Users/musta/StudioProjects/Chronic_Diseases/android/app/.cxx/RelWithDebInfo/6c24115p/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/musta/StudioProjects/Chronic_Diseases/android/app/.cxx/RelWithDebInfo/6c24115p/arm64-v8a/CMakeFiles/rebuild_cache.dir
