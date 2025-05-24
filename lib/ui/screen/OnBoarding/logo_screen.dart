@@ -14,7 +14,7 @@ class IntroScreen extends StatelessWidget {
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const Welcometomediva(),
+              Welcometomediva(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             // انيميشن الانتقال التدريجي (Fade)
             return FadeTransition(

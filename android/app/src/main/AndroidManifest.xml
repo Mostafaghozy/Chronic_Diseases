@@ -18,7 +18,7 @@
     </queries>
 
     <application
-        android:label="chronic_diseases"
+        android:label="@string/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         

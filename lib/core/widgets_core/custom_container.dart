@@ -34,7 +34,9 @@ class CustomContainer extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-          Container(child: button,),
+          Container(
+            child: button,
+          ),
         ],
       ),
     );

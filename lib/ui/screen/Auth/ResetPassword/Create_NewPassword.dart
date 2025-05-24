@@ -116,7 +116,6 @@ class NewPassword extends StatelessWidget {
                             );
                           }
                         : null,
-                    isLoading: isLoading,
                   ),
                 ],
               ),

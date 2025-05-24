@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class PatientScreen extends StatefulWidget {
-  PatientScreen({super.key});
+  const PatientScreen({super.key});
 
   @override
   _PatientScreenState createState() => _PatientScreenState();

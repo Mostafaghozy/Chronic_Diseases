@@ -5,6 +5,7 @@ import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/emailWidget.dart';
 
 import 'package:chronic_diseases/ui/screen/Auth/ResetPassword/DoneResetPassword.dart';
 import 'package:chronic_diseases/ui/screen/Auth/ResetPassword/resetPassword.dart';
+import 'package:chronic_diseases/ui/screen/home_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -138,30 +139,41 @@ class Loginscreen extends StatelessWidget {
                 SizedBox(
                   height: 50,
                 ),
-                BlocBuilder<LoginCubit, LoginState>(
-                  builder: (context, state) {
-                    return Button(
-                      text: 'Login',
-                      isLoading: state is LoadingLoginState,
-                      onPressed: () {
-                        if (_emailController.text.isNotEmpty &&
-                            _passwordController.text.isNotEmpty) {
-                          context.read<LoginCubit>().login(
-                                _emailController.text,
-                                _passwordController.text,
-                              );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Please fill all fields'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        }
-                      },
+                Button(
+                  text: "Login",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePageView(),
+                      ),
                     );
                   },
                 ),
+                // BlocBuilder<LoginCubit, LoginState>(
+                //   builder: (context, state) {
+                //     return Button(
+                //       text: 'Login',
+                //       isLoading: state is LoadingLoginState,
+                //       onPressed: () {
+                //         if (_emailController.text.isNotEmpty &&
+                //             _passwordController.text.isNotEmpty) {
+                //           context.read<LoginCubit>().login(
+                //                 _emailController.text,
+                //                 _passwordController.text,
+                //               );
+                //         } else {
+                //           ScaffoldMessenger.of(context).showSnackBar(
+                //             SnackBar(
+                //               content: Text('Please fill all fields'),
+                //               backgroundColor: Colors.red,
+                //             ),
+                //           );
+                //         }
+                //       },
+                //     );
+                //   },
+                // ),
                 SizedBox(
                   height: 40,
                 ),

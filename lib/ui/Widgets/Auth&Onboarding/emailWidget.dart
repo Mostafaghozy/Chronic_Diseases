@@ -38,7 +38,7 @@ class _EmailWidgetState extends State<EmailWidget> {
   void _checkEmailValidity(String email) {
     setState(() {
       _isEmailValid =
-          RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+          RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$').hasMatch(email);
     });
     widget.onChanged?.call(email, _isEmailValid);
   }

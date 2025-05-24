@@ -107,7 +107,6 @@ class Resetpassword extends StatelessWidget {
                             cubit.sendResetCode();
                           }
                         : null,
-                    isLoading: isLoading,
                   ),
                 ],
               ),

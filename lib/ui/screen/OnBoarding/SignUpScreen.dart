@@ -1,4 +1,7 @@
 import 'package:chronic_diseases/core/utils/colors.dart';
+import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/Button_widget.dart';
+import 'package:chronic_diseases/ui/screen/Auth/SignUp/patient.dart';
+import 'package:chronic_diseases/ui/screen/Auth/login/LoginScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,8 +20,8 @@ class Signupscreen extends StatelessWidget {
               Color(0xFF689C4A), // اللون الأول
               Color(0xFF4F9131), // اللون الثاني
             ],
-            begin: Alignment.topCenter,  // بداية التدرج من الأعلى
-            end: Alignment.bottomCenter,  // نهاية التدرج في الأسفل
+            begin: Alignment.topCenter, // بداية التدرج من الأعلى
+            end: Alignment.bottomCenter, // نهاية التدرج في الأسفل
           ),
         ),
         child: Column(
@@ -60,57 +63,40 @@ class Signupscreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 48),
-            InkWell(
-              onTap: () {
-                /// TO DO
+            const SizedBox(height: 20),
+            Button(
+              text: "Sign Up",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PatientScreen(),
+                  ),
+                );
               },
-              child: Center(
-                child: Container(
-                  width: 360,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    color: ColorsManger.white,
-                    borderRadius: BorderRadius.circular(35),
+            ),
+            const SizedBox(height: 20),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Loginscreen(),
                   ),
-                  child: const Center(
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontFamily: 'Nunito-SemiBold.ttf',
-                      ),
-                    ),
-                  ),
+                );
+              },
+              child: Text(
+                "Login",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  // fontWeight: FontWeight.bold,
+                  fontFamily: 'Nunito-SemiBold.ttf',
+                  // decoration: TextDecoration.underline,
                 ),
               ),
             ),
-            const SizedBox(height: 16),
-            InkWell(
-              onTap: () {
-                /// TO DO
-              },
-              child: Center(
-                child: Container(
-                  width: 360,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                        color: ColorsManger.white,
-                        fontSize: 16,
-                        fontFamily: 'Nunito-Regular.ttf',
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),

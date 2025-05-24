@@ -1,3 +1,5 @@
+import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/Button_widget.dart';
+import 'package:chronic_diseases/ui/screen/home_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -56,31 +58,45 @@ class Done extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 30), // مسافة بين العناصر
-
-              // زر "Enter to Mediva"
-              ElevatedButton(
-                onPressed: () {
-                  // إضافة الوظيفة المطلوبة هنا
-                  print('Enter to Mediva clicked');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFB5EF74), // لون الخلفية
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // زوايا دائرية
-                  ),
-                ),
-                child: Text(
-                  'Enter to Mediva',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Nunito',
-                  ),
+              SizedBox(height: 30),
+              SizedBox(
+                height: 52,
+                width: 200,
+                child: Button(
+                  text: "Enter to Mediva",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePageView(),
+                      ),
+                    );
+                  },
                 ),
               ),
+
+              // ElevatedButton(
+              //   onPressed: () {
+              //     // إضافة الوظيفة المطلوبة هنا
+              //     print('Enter to Mediva clicked');
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor: Color(0xFFB5EF74), // لون الخلفية
+              //     padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(30), // زوايا دائرية
+              //     ),
+              //   ),
+              //   child: Text(
+              //     'Enter to Mediva',
+              //     style: TextStyle(
+              //       fontSize: 16,
+              //       color: Colors.black,
+              //       fontWeight: FontWeight.w600,
+              //       fontFamily: 'Nunito',
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

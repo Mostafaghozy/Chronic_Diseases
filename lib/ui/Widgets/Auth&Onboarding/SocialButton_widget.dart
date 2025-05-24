@@ -1,3 +1,4 @@
+import 'package:chronic_diseases/ui/screen/Auth/SignUp/patient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,12 +36,12 @@ class SocialButtons extends StatelessWidget {
         GestureDetector(
           onTap: () {
             print("Create an account");
-            //Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => SignUp(),
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PatientScreen(),
+              ),
+            );
           },
           child: Text(
             "Create an account",

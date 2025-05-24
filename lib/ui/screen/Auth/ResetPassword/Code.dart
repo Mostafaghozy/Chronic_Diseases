@@ -122,7 +122,6 @@ class ConfirmationCode extends StatelessWidget {
                         );
                       }
                     },
-                    isLoading: isLoading,
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(

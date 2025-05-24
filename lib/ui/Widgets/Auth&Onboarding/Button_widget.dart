@@ -6,6 +6,7 @@ class Button extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
   final double fontSize;
+  final bool? isLoading; // إضافة متغير isLoading
 
   const Button({
     super.key,
@@ -14,7 +15,7 @@ class Button extends StatelessWidget {
     this.backgroundColor = const Color(0xFFB5EF74),
     this.textColor = Colors.black,
     this.fontSize = 16,
-    required bool isLoading,
+    this.isLoading,
   });
 
   @override

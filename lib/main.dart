@@ -6,6 +6,8 @@ import 'package:chronic_diseases/ui/screen/Auth/SignUp/healthcareInformation.dar
 import 'package:chronic_diseases/ui/screen/Auth/SignUp/patient.dart';
 import 'package:chronic_diseases/ui/screen/Auth/login/LoginScreen.dart';
 import 'package:chronic_diseases/ui/screen/Auth/ResetPassword/resetPassword.dart';
+import 'package:chronic_diseases/ui/screen/OnBoarding/WelcomeToMediva.dart';
+import 'package:chronic_diseases/ui/screen/OnBoarding/logo_screen.dart';
 import 'package:chronic_diseases/ui/screen/home_page_view.dart';
 import 'package:chronic_diseases/ui/screen/notification_page_view.dart';
 import 'package:device_preview/device_preview.dart';
@@ -34,11 +36,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: HomePageView(),
+        home: Welcometomediva(),
       ),
     );
   }
