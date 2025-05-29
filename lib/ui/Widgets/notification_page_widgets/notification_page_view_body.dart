@@ -2,7 +2,8 @@ import 'package:chronic_diseases/core/app_color.dart';
 import 'package:chronic_diseases/core/assets.dart';
 import 'package:chronic_diseases/core/styles.dart';
 import 'package:chronic_diseases/core/widgets_core/custom_notification_container_item.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/notification_page_widgets/notification_setting_body.dart';
+
+import 'package:chronic_diseases/ui/Widgets/notification_page_widgets/notification_setting_body.dart';
 import 'package:flutter/material.dart';
 
 class NotificationPageViewBody extends StatelessWidget {
@@ -23,11 +24,18 @@ class NotificationPageViewBody extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(
-                size: 20, color: Color(0xff33363F), Icons.settings_outlined),
+              size: 20,
+              color: Color(0xff33363F),
+              Icons.settings_outlined,
+            ),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return const NotificationSettingBody();
-              }));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const NotificationSettingBody();
+                  },
+                ),
+              );
             },
           ),
         ],

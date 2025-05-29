@@ -1,5 +1,7 @@
 import 'package:chronic_diseases/core/app_color.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/home_page_widgets/home_page_view_body.dart';
+
+import 'package:chronic_diseases/ui/Widgets/home_page_widgets/home_page_view_body.dart';
+import 'package:chronic_diseases/ui/screen/check_symptoms_page_view.dart';
 import 'package:chronic_diseases/ui/screen/profile_page_view.dart';
 import 'package:flutter/material.dart';
 
@@ -33,13 +35,14 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF0F0F0),
       body: PageView(
         controller: _pageController,
         onPageChanged: _onPageChanged,
         children: const [
-          Center(child: HomePageViewBody()),
+          HomePageViewBody(),
           Center(child: Text("Reports")),
-          Center(child: Text("Check Symptoms")),
+          CheckSymptomsPageView(),
           ProfilePageView(),
         ],
       ),
@@ -54,10 +57,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         unselectedItemColor: AppColor.kUnSelectedColorBottomNav,
         iconSize: 24,
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
-            label: "Home",
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "Home"),
           BottomNavigationBarItem(
             icon: Icon(Icons.description_outlined),
             label: "Reports",
@@ -66,10 +66,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             icon: Icon(Icons.manage_search_outlined),
             label: "Check Symptoms",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
     );

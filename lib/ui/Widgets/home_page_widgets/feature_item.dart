@@ -13,7 +13,6 @@ class FeatureItem extends StatelessWidget {
       children: [
         CustomContainer(
           title: "Explore All Mediva Features",
-          height: 150,
           width: 240,
           button: Align(
             alignment: Alignment.centerLeft,

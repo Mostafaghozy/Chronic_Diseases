@@ -11,13 +11,14 @@ class TipsContainer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 29),
       width: 418,
-      height: 180,
+      // height removed to allow content to determine height
       decoration: BoxDecoration(
         color: AppColor.kWhiteColor,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,

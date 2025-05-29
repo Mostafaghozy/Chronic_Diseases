@@ -1,0 +1,126 @@
+import 'package:chronic_diseases/core/widgets_core/custom_button.dart';
+import 'package:chronic_diseases/core/widgets_core/custom_text_form_field.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../../../core/app_color.dart';
+import '../../../../../../core/styles.dart';
+
+import 'check_symptoms_analyzing.dart';
+
+class CheckSymptomsHealthMetrics extends StatelessWidget {
+  const CheckSymptomsHealthMetrics({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 860,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        size: 17,
+                        color: AppColor.kTextButtonGreenColor,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        "Back",
+                        style: Styles.textStyle16.copyWith(
+                          color: AppColor.kTextButtonGreenColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  },
+                  child: Text(
+                    "Cancel",
+                    style: Styles.textStyle16.copyWith(
+                      color: AppColor.kTextButtonGreenColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 30),
+          Text(
+            "Health Metrics",
+            style: Styles.textStyle24.copyWith(
+              color: Color(0xff22292E),
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          SizedBox(height: 32),
+          CustomTextFormField(
+            title: "Gender",
+            hintText: "enter your gender",
+            controller: TextEditingController(),
+          ),
+          SizedBox(height: 24),
+          CustomTextFormField(
+            title: "Age",
+            hintText: "enter your age",
+            controller: TextEditingController(),
+          ),
+          SizedBox(height: 24),
+          CustomTextFormField(
+            title: "Hypertension",
+            hintText: "systolic/diastolic (mmHg)",
+            controller: TextEditingController(),
+          ),
+          SizedBox(height: 24),
+          CustomTextFormField(
+            title: "Smoking History",
+            hintText: "select your smoking level",
+            controller: TextEditingController(),
+          ),
+          SizedBox(height: 24),
+          CustomTextFormField(
+            title: "Heart Disease",
+            hintText: "enter yes/no",
+            controller: TextEditingController(),
+          ),
+          const SizedBox(height: 17),
+          CustomButton(
+            text: "Check Now",
+            style: Styles.textStyle16,
+            onTap: () {
+              showModalBottomSheet(
+                backgroundColor: AppColor.kWhiteColor,
+                isScrollControlled: true,
+                useSafeArea: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                ),
+                context: context,
+                builder: (BuildContext context) {
+                  return const CheckSymptomsAnalyzing();
+                },
+              );
+            },
+            color: AppColor.kSecondaryGreenColor,
+            width: 364,
+            height: 52,
+            borderRadius: 24,
+          ),
+        ],
+      ),
+    );
+  }
+}

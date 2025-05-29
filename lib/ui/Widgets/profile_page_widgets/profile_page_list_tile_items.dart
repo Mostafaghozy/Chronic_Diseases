@@ -1,11 +1,12 @@
 import 'package:chronic_diseases/core/widgets_core/custom_item_list_tile.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/profile_page_widgets/account_view_body.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/profile_page_widgets/appearance_display_view_body.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/profile_page_widgets/health_data_and_reports_view_body.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/profile_page_widgets/help_and_support_view_body.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/profile_page_widgets/language_and_region_view_body.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/profile_page_widgets/notifications_view_body.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/profile_page_widgets/privacy_and_security_view_body.dart';
+
+import 'package:chronic_diseases/ui/Widgets/profile_page_widgets/account_view_body.dart';
+import 'package:chronic_diseases/ui/Widgets/profile_page_widgets/appearance_display_view_body.dart';
+import 'package:chronic_diseases/ui/Widgets/profile_page_widgets/health_data_and_reports_view_body.dart';
+import 'package:chronic_diseases/ui/Widgets/profile_page_widgets/help_and_support_view_body.dart';
+import 'package:chronic_diseases/ui/Widgets/profile_page_widgets/language_and_region_view_body.dart';
+import 'package:chronic_diseases/ui/Widgets/profile_page_widgets/notifications_view_body.dart';
+import 'package:chronic_diseases/ui/Widgets/profile_page_widgets/privacy_and_security_view_body.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/app_color.dart';

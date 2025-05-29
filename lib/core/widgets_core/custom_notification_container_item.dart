@@ -35,15 +35,11 @@ class CustomNotificationContainerItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            image,
-            width: 60,
-            height: 60,
-          ),
+          Image.asset(image, width: 60, height: 60),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
-              mainAxisSize: MainAxisSize.min, // ✅ هذا السطر يحل المشكلة
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
@@ -74,7 +70,7 @@ class CustomNotificationContainerItem extends StatelessWidget {
                   style: Styles.textStyle14.copyWith(
                     color: AppColor.kBlackColor,
                     fontWeight: FontWeight.w400,
-                    height: 1.3,
+                    height: 1.1,
                   ),
                 ),
               ],

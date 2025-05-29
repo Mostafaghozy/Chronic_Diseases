@@ -1,8 +1,8 @@
-import 'package:chronic_diseases/ui/Widgets/_home/home_page_widgets/feature_listview.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/home_page_widgets/quick_access_listview.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/home_page_widgets/quick_access_text.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/home_page_widgets/your_health_insights_head.dart';
-import 'package:chronic_diseases/ui/Widgets/_home/home_page_widgets/your_health_insights_listview.dart';
+import 'package:chronic_diseases/ui/Widgets/home_page_widgets/feature_listview.dart';
+import 'package:chronic_diseases/ui/Widgets/home_page_widgets/quick_access_listview.dart';
+import 'package:chronic_diseases/ui/Widgets/home_page_widgets/quick_access_text.dart';
+import 'package:chronic_diseases/ui/Widgets/home_page_widgets/your_health_insights_head.dart';
+import 'package:chronic_diseases/ui/Widgets/home_page_widgets/your_health_insights_listview.dart';
 import 'package:flutter/material.dart';
 
 import 'head_line_row.dart';

@@ -10,10 +10,7 @@ class YourHealthInsightsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 24,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       width: 160,
       height: 164,
       decoration: BoxDecoration(
@@ -22,41 +19,39 @@ class YourHealthInsightsItem extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Row(children: [
-            Container(
-              margin: const EdgeInsets.only(right: 10),
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: const Color(0xffFBF0F3),
-                image: const DecorationImage(
-                  image: AssetImage(AssetsData.heartLogo),
+          Row(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(right: 10),
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: const Color(0xffFBF0F3),
+                  image: const DecorationImage(
+                    image: AssetImage(AssetsData.heartLogo),
+                  ),
                 ),
+                // child: const Image(
+                //   height: 20,
+                //   width: 20,
+                //   image: AssetImage(
+                //     AssetsData.heartLogo,
+                //   ),
+                // ),
               ),
-              // child: const Image(
-              //   height: 20,
-              //   width: 20,
-              //   image: AssetImage(
-              //     AssetsData.heartLogo,
-              //   ),
-              // ),
-            ),
-            Text(
-              "Heart Rate",
-              style: Styles.textStyle12.copyWith(
-                color: AppColor.kBlackColor,
+              Text(
+                "Heart Rate",
+                style: Styles.textStyle12.copyWith(color: AppColor.kBlackColor),
               ),
-            ),
-          ]),
+            ],
+          ),
           const SizedBox(height: 12),
           Row(
             children: [
               Text(
                 "98",
-                style: Styles.textStyle24.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+                style: Styles.textStyle24.copyWith(fontWeight: FontWeight.w500),
               ),
               const SizedBox(width: 6),
               Row(

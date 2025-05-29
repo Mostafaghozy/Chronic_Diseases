@@ -1,0 +1,37 @@
+import 'package:chronic_diseases/core/app_color.dart';
+import 'package:chronic_diseases/core/styles.dart';
+import 'package:flutter/material.dart';
+
+class CheckSymptomsLoginContainer extends StatelessWidget {
+  const CheckSymptomsLoginContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 186,
+      width: 295,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.assignment, color: Color(0xfcb0b0b1), size: 40),
+          SizedBox(height: 28),
+          Text(
+            "Log Symptoms Now!",
+            style: Styles.textStyle20.copyWith(
+              color: AppColor.kBlackColor,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          Text(
+            textAlign: TextAlign.center,
+            "Log symptoms to analyze them\n using our AI tool.",
+            style: Styles.textStyle16.copyWith(
+              color: AppColor.kSubtitle2Color,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

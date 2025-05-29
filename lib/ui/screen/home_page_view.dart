@@ -1,4 +1,4 @@
-import 'package:chronic_diseases/ui/Widgets/_home/my_bottom_nav_bar.dart';
+import 'package:chronic_diseases/ui/Widgets/my_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomePageView extends StatelessWidget {
@@ -7,7 +7,8 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: const Color(0xFFF0F0F0)),
+      // light grey background
       body: const MyBottomNavigationBar(),
     );
   }

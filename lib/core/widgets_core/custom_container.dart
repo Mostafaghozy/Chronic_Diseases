@@ -5,13 +5,13 @@ import '../styles.dart';
 class CustomContainer extends StatelessWidget {
   const CustomContainer({
     super.key,
-    required this.height,
+    this.height,
     required this.width,
     required this.title,
     required this.button,
   });
 
-  final double height;
+  final double? height;
   final double width;
   final String title;
   final Widget button;
@@ -27,16 +27,13 @@ class CustomContainer extends StatelessWidget {
         color: AppColor.kGreenWhiteColor,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             title,
-            style: Styles.textStyle24.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+            style: Styles.textStyle24.copyWith(fontWeight: FontWeight.w700),
           ),
-          Container(
-            child: button,
-          ),
+          Container(child: button),
         ],
       ),
     );
