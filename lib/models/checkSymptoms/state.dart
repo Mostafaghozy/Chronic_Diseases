@@ -1,18 +1,11 @@
-import 'prediction_response_model.dart';
-
-abstract class CheckSymptomsState {
-  bool get isLoading => false;
-}
+abstract class CheckSymptomsState {}
 
 class CheckSymptomsInitial extends CheckSymptomsState {}
 
-class CheckSymptomsLoading extends CheckSymptomsState {
-  @override
-  bool get isLoading => true;
-}
+class CheckSymptomsLoading extends CheckSymptomsState {}
 
 class CheckSymptomsSuccess extends CheckSymptomsState {
-  final PredictionResponseModel result;
+  final dynamic result; // Update with a model if available
   CheckSymptomsSuccess(this.result);
 }
 

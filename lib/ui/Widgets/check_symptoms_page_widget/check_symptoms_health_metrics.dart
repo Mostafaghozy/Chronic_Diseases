@@ -61,6 +61,19 @@ class _CheckSymptomsHealthMetricsState
       );
 
       context.read<CheckSymptomsCubit>().predictSymptoms(request);
+
+      showModalBottomSheet(
+        backgroundColor: AppColor.kWhiteColor,
+        isScrollControlled: true,
+        useSafeArea: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        context: context,
+        builder: (BuildContext context) {
+          return const CheckSymptomsAnalyzing();
+        },
+      );
     }
   }
 
@@ -226,24 +239,20 @@ class _CheckSymptomsHealthMetricsState
                 const SizedBox(height: 32),
                 BlocBuilder<CheckSymptomsCubit, CheckSymptomsState>(
                   builder: (context, state) {
-                    final isLoading = state is CheckSymptomsLoading;
                     return CustomButton(
-                      text: isLoading ? "Checking..." : "Check Now",
+                      text: state is CheckSymptomsLoading
+                          ? "Checking..."
+                          : "Check Now",
                       style: Styles.textStyle16,
-                      onTap: () {
-                        if (!isLoading) {
-                          _submitForm();
-                        }
-                      },
+                      onTap: state is CheckSymptomsLoading
+                          ? () {}
+                          : _submitForm,
                       color: AppColor.kSecondaryGreenColor,
                       width: 364,
                       height: 52,
                       borderRadius: 24,
                     );
                   },
-                  // builder: (BuildContext context, CheckSymptomsState state) {
-                  //   return const CheckSymptomsAnalyzing();
-                  // },
                 ),
                 SizedBox(height: 20),
               ],

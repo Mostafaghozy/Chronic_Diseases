@@ -7,9 +7,6 @@ import 'prediction_response_model.dart';
 
 class CheckSymptomsCubit extends Cubit<CheckSymptomsState> {
   CheckSymptomsCubit() : super(CheckSymptomsInitial());
-
-  bool get isLoading => state.isLoading;
-
   Future<void> predictSymptoms(PredictionRequestModel request) async {
     emit(CheckSymptomsLoading());
 
@@ -36,9 +33,6 @@ class CheckSymptomsCubit extends Cubit<CheckSymptomsState> {
       }
     } catch (e) {
       emit(CheckSymptomsError('Error: $e'));
-    } finally {
-      // Optionally, you can reset the state after processing
-      emit(CheckSymptomsInitial());
     }
   }
 }
