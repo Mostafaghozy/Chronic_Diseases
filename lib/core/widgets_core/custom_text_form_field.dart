@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
+  final TextInputType? keyboardType; // Add this line
 
   const CustomTextFormField({
     super.key,
@@ -16,6 +17,7 @@ class CustomTextFormField extends StatelessWidget {
     this.controller,
     this.onChanged,
     this.validator,
+    this.keyboardType, // Add this line
   });
 
   @override
@@ -33,6 +35,7 @@ class CustomTextFormField extends StatelessWidget {
         const SizedBox(height: 16),
         TextFormField(
           controller: controller,
+          keyboardType: keyboardType, // Add this line
           decoration: InputDecoration(
             prefixIcon: Icon(
               Icons.assignment,

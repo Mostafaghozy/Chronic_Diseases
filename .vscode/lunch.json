@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter Chrome (port 8080)",
+      "request": "launch",
+      "type": "dart",
+      "args": ["-d", "chrome", "--web-port=8080"]
+    }
+  ]
+}

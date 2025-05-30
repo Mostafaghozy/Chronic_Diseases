@@ -16,13 +16,11 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:chronic_diseases/models/checkSymptoms/cubit.dart'; // Add this import
 
 void main() => runApp(
-  // DevicePreview(
-  //   enabled: !kReleaseMode,
-  //   builder: (context) => MyApp(),
-  // ),
-  const MyApp(),
+  DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()),
+  // const MyApp(),
 );
 
 class MyApp extends StatelessWidget {
@@ -35,6 +33,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => LoginCubit()),
         BlocProvider(create: (_) => ForgetPasswordCubit()),
         BlocProvider(create: (_) => ChangePasswordCubit()),
+        BlocProvider(create: (_) => CheckSymptomsCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -2,7 +2,6 @@ import 'package:chronic_diseases/core/widgets_core/custom_button.dart';
 import 'package:chronic_diseases/core/widgets_core/custom_container_4.dart';
 import 'package:chronic_diseases/core/widgets_core/custom_container_5.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../../core/app_color.dart';
 import '../../../../../../core/assets.dart';
 import '../../../../../../core/styles.dart';
@@ -37,11 +36,11 @@ class ServeDetails extends StatelessWidget {
             SizedBox(height: 29),
             Row(
               children: [
-                Image.asset(
-                  AssetsData.analyzingResultLogo,
-                  height: 64,
-                  width: 64,
-                ),
+                // Image.asset(
+                //   AssetsData.analyzingResultLogo,
+                //   height: 64,
+                //   width: 64,
+                // ),
                 SizedBox(width: 20),
                 Text(
                   textAlign: TextAlign.start,
