@@ -13,11 +13,11 @@ import 'package:dashed_circular_progress_bar/dashed_circular_progress_bar.dart';
 class ServeDetails extends StatelessWidget {
   ServeDetails({super.key});
   final ValueNotifier<double> _valueNotifier = ValueNotifier(0);
-
   @override
   Widget build(BuildContext context) {
     final state = BlocProvider.of<CheckSymptomsCubit>(context).state;
     final result = state is CheckSymptomsSuccess ? state.result : null;
+    final inputData = state is CheckSymptomsSuccess ? state.inputData : null;
     final riskPercentage = result?.riskPercentage ?? 60.0;
     final riskLevel =
         result?.riskLevel ?? "Severe Risk 50-100%\nSeek Medical Help ASAP";
@@ -33,6 +33,33 @@ class ServeDetails extends StatelessWidget {
     } else if (riskPercentage >= 40) {
       progressColor = Colors.orange;
     }
+
+    // Helper functions to format the display values
+    String formatHypertension(int? hypertension) {
+      if (hypertension == 1) {
+        return "Yes";
+      } else {
+        return "No";
+      }
+    }
+
+    String formatHeartDisease(int? heartDisease) {
+      if (heartDisease == 1) {
+        return "Yes";
+      } else {
+        return "No";
+      }
+    }
+
+    String formatSmokingHistory(String? smokingHistory) {
+      if (smokingHistory == null || smokingHistory.isEmpty) {
+        return "Not specified";
+      }
+      // Capitalize first letter
+      return smokingHistory.substring(0, 1).toUpperCase() +
+          smokingHistory.substring(1);
+    }
+
     return Padding(
       padding: const EdgeInsets.only(left: 16, top: 13),
       child: SingleChildScrollView(
@@ -73,7 +100,7 @@ class ServeDetails extends StatelessWidget {
                   backgroundColor: const Color(0xffeeeeee),
                   foregroundStrokeWidth: 10,
                   backgroundStrokeWidth: 10,
-                  animation: true,
+                  animation: false,
                   seekSize: 6,
                   seekColor: const Color(0xffeeeeee),
                   child: Center(
@@ -120,18 +147,65 @@ class ServeDetails extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  CustomContainer4(
-                    title: "Hypertension",
-                    subTitle: "140/90 (mmHg)",
-                  ),
-                  SizedBox(width: 12),
-                  CustomContainer4(title: "Heart Disease", subTitle: "Yes"),
-                  SizedBox(width: 12),
-                  CustomContainer4(
-                    title: "Smoking History",
-                    subTitle: "Regular",
-                  ),
-                  SizedBox(width: 12),
+                  if (inputData != null) ...[
+                    CustomContainer4(
+                      title: "Gender",
+                      subTitle: inputData.gender.isNotEmpty
+                          ? inputData.gender
+                          : "Not specified",
+                    ),
+                    SizedBox(width: 12),
+                    CustomContainer4(
+                      title: "Age",
+                      subTitle: "${inputData.age} years",
+                    ),
+                    SizedBox(width: 12),
+                    CustomContainer4(
+                      title: "Hypertension",
+                      subTitle: formatHypertension(inputData.hypertension),
+                    ),
+                    SizedBox(width: 12),
+                    CustomContainer4(
+                      title: "Heart Disease",
+                      subTitle: formatHeartDisease(inputData.heartDisease),
+                    ),
+                    SizedBox(width: 12),
+                    CustomContainer4(
+                      title: "Smoking History",
+                      subTitle: formatSmokingHistory(inputData.smokingHistory),
+                    ),
+                    SizedBox(width: 12),
+                    CustomContainer4(
+                      title: "BMI",
+                      subTitle: inputData.bmi.toStringAsFixed(1),
+                    ),
+                    SizedBox(width: 12),
+                    CustomContainer4(
+                      title: "HbA1c Level",
+                      subTitle: "${inputData.hbA1cLevel.toStringAsFixed(1)}%",
+                    ),
+                    SizedBox(width: 12),
+                    CustomContainer4(
+                      title: "Blood Glucose",
+                      subTitle:
+                          "${inputData.bloodGlucoseLevel.toStringAsFixed(0)} mg/dL",
+                    ),
+                    SizedBox(width: 12),
+                  ] else ...[
+                    // Fallback to original hardcoded values if no input data
+                    CustomContainer4(
+                      title: "Hypertension",
+                      subTitle: "140/90 (mmHg)",
+                    ),
+                    SizedBox(width: 12),
+                    CustomContainer4(title: "Heart Disease", subTitle: "Yes"),
+                    SizedBox(width: 12),
+                    CustomContainer4(
+                      title: "Smoking History",
+                      subTitle: "Regular",
+                    ),
+                    SizedBox(width: 12),
+                  ],
                 ],
               ),
             ),
@@ -152,15 +226,17 @@ class ServeDetails extends StatelessWidget {
                 children: [
                   CustomContainer5(
                     title: "Lifestyle\nFactors",
-                    subtitle:
-                        "Unhealthy eating habits\nLack of exercise\nHigh-stress levels\n",
+                    subtitle: riskPercentage > 50
+                        ? "Unhealthy eating habits\nLack of exercise\nHigh-stress levels\n"
+                        : "healthy eating habits",
                     imagePath: AssetsData.lifestyleFactorLogo,
                   ),
                   SizedBox(width: 10),
                   CustomContainer5(
                     title: "Genetic Risk\nFactors",
-                    subtitle:
-                        "Family history of diabetes\nPreviously diagnosed with\nprediabetes.",
+                    subtitle: riskPercentage > 50
+                        ? "Family history of diabetes\nObesity\nGenetic predisposition\n"
+                        : "all is well",
                     imagePath: AssetsData.geneticRiskFactorLogo,
                   ),
                   SizedBox(width: 10),

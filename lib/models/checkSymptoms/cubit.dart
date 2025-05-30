@@ -23,7 +23,7 @@ class CheckSymptomsCubit extends Cubit<CheckSymptomsState> {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final result = PredictionResponseModel.fromJson(data);
-        emit(CheckSymptomsSuccess(result));
+        emit(CheckSymptomsSuccess(result, request));
       } else {
         emit(
           CheckSymptomsError(

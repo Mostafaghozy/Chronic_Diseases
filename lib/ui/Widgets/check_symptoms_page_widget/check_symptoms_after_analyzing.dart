@@ -59,9 +59,7 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
               ],
             ),
           );
-        }
-
-        // Get the prediction result from successful state
+        } // Get the prediction result from successful state
         final result = state is CheckSymptomsSuccess ? state.result : null;
         final riskPercentage = result?.riskPercentage ?? 60.0;
         final riskLevel =
