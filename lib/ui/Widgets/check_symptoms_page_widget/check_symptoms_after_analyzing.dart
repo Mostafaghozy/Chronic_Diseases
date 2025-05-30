@@ -157,7 +157,7 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
                       backgroundColor: const Color(0xffeeeeee),
                       foregroundStrokeWidth: 15,
                       backgroundStrokeWidth: 15,
-                      animation: true,
+                      animation: false,
                       seekSize: 6,
                       seekColor: const Color(0xffeeeeee),
                       child: Center(
@@ -167,7 +167,7 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                '${value.toInt()}%',
+                                '${value}%',
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w300,

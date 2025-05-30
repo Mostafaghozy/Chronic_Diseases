@@ -227,8 +227,8 @@ class ServeDetails extends StatelessWidget {
                   CustomContainer5(
                     title: "Lifestyle\nFactors",
                     subtitle: riskPercentage > 50
-                        ? "Unhealthy eating habits\nLack of exercise\nHigh-stress levels\n"
-                        : "healthy eating habits",
+                        ? "Unhealthy eating meals\nLack of exercise\nHigh-stress levels\n"
+                        : "Occasional unhealthy meals \nSedentary lifestyle \n(long sitting hours)\n",
                     imagePath: AssetsData.lifestyleFactorLogo,
                   ),
                   SizedBox(width: 10),
@@ -236,7 +236,7 @@ class ServeDetails extends StatelessWidget {
                     title: "Genetic Risk\nFactors",
                     subtitle: riskPercentage > 50
                         ? "Family history of diabetes\nObesity\nGenetic predisposition\n"
-                        : "all is well",
+                        : "No known family history of diabetes \nNo prediabetes diagnosis\n",
                     imagePath: AssetsData.geneticRiskFactorLogo,
                   ),
                   SizedBox(width: 10),

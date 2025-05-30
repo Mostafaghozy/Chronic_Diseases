@@ -78,14 +78,21 @@ class _CheckSymptomsHealthMetricsState
   }
 
   int _parseHypertension(String value) {
-    // If user enters something like "140/90" or just "yes", convert to 1
-    // Otherwise, if "no" or empty, convert to 0
-    if (value.toLowerCase().contains('yes') ||
-        value.contains('/') ||
-        value.contains('high')) {
+    var parts = value.split('/');
+
+    int? systolic = int.tryParse(parts[0].trim());
+    int? diastolic = int.tryParse(parts[1].trim());
+
+    if (systolic != null &&
+        diastolic != null &&
+        systolic >= 70 &&
+        systolic <= 120 &&
+        diastolic >= 60 &&
+        diastolic <= 80) {
+      return 0; // Valid blood pressure
+    } else {
       return 1;
     }
-    return 0;
   }
 
   int _parseHeartDisease(String value) {
@@ -111,6 +118,36 @@ class _CheckSymptomsHealthMetricsState
       return 'Please enter a valid number';
     }
     return null;
+  }
+
+  String? _validateHypertension(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Hypertension is required';
+    }
+
+    // Validate blood pressure format (number/number)
+    if (value.contains('/')) {
+      List<String> parts = value.split('/');
+      if (parts.length == 2) {
+        // Check if both parts are valid numbers
+        int? systolic = int.tryParse(parts[0].trim());
+        int? diastolic = int.tryParse(parts[1].trim());
+
+        if (systolic != null && diastolic != null) {
+          // Optional: Add range validation for realistic blood pressure values
+          if (systolic >= 70 &&
+              systolic <= 300 &&
+              diastolic >= 40 &&
+              diastolic <= 200) {
+            return null;
+          } else {
+            return 'Please enter realistic blood pressure values (e.g., 120/80)';
+          }
+        }
+      }
+    }
+
+    return 'Please enter blood pressure format (e.g., 120/80)';
   }
 
   @override
@@ -193,10 +230,9 @@ class _CheckSymptomsHealthMetricsState
                 SizedBox(height: 24),
                 CustomTextFormField(
                   title: "Hypertension",
-                  hintText: "Yes/No or blood pressure (e.g., 140/90)",
+                  hintText: "blood pressure (e.g., 140/90)",
                   controller: _hypertensionController,
-                  validator: (value) =>
-                      _validateRequired(value, "Hypertension"),
+                  validator: _validateHypertension,
                 ),
                 SizedBox(height: 24),
                 CustomTextFormField(
