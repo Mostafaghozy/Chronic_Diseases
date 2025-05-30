@@ -11,6 +11,7 @@ import 'package:chronic_diseases/ui/screen/OnBoarding/WelcomeToMediva.dart';
 import 'package:chronic_diseases/ui/screen/OnBoarding/logo_screen.dart';
 import 'package:chronic_diseases/ui/screen/check_symptoms_page_view.dart';
 import 'package:chronic_diseases/ui/screen/home_page_view.dart';
+import 'package:chronic_diseases/ui/screen/HealthCheckSummary.dart';
 import 'package:chronic_diseases/ui/screen/notification_page_view.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
         //   '/home': (context) => HomePageView(),
         //   // Add more routes as needed
         // },
-        home: CheckSymptomsPageView(),
+        home: Welcometomediva(),
       ),
     );
   }

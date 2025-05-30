@@ -9,6 +9,7 @@ import '../../../../../../core/styles.dart';
 import 'package:chronic_diseases/models/checkSymptoms/cubit.dart';
 import 'package:chronic_diseases/models/checkSymptoms/state.dart';
 import 'package:dashed_circular_progress_bar/dashed_circular_progress_bar.dart';
+import 'package:chronic_diseases/ui/screen/HealthCheckSummary.dart';
 
 class ServeDetails extends StatelessWidget {
   ServeDetails({super.key});
@@ -247,7 +248,14 @@ class ServeDetails extends StatelessWidget {
             CustomButton(
               text: "Consult a Doctor",
               style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HealthCheckSummary(),
+                  ),
+                );
+              },
               color: AppColor.kSecondaryGreenColor,
               width: 365,
               height: 52,
