@@ -6,7 +6,7 @@ class PredictionRequestModel {
   final String smokingHistory;
   final double bmi;
   final double hbA1cLevel;
-  final double bloodGlucoseLevel;
+  final int bloodGlucoseLevel;
 
   PredictionRequestModel({
     required this.gender,

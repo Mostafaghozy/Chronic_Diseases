@@ -57,7 +57,7 @@ class _CheckSymptomsHealthMetricsState
         smokingHistory: _smokingHistoryController.text.trim(),
         bmi: double.tryParse(_bmiController.text) ?? 0.0,
         hbA1cLevel: double.tryParse(_hbA1cController.text) ?? 0.0,
-        bloodGlucoseLevel: double.tryParse(_bloodGlucoseController.text) ?? 0.0,
+        bloodGlucoseLevel: int.tryParse(_bloodGlucoseController.text) ?? 0,
       );
 
       context.read<CheckSymptomsCubit>().predictSymptoms(request);
