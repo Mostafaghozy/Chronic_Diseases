@@ -224,6 +224,7 @@ class _CheckSymptomsHealthMetricsState
                 CustomTextFormField(
                   title: "Age",
                   hintText: "Enter your age (e.g., 30)",
+                  keyboardType: TextInputType.number,
                   controller: _ageController,
                   validator: (value) => _validateNumber(value, "Age"),
                 ),
@@ -254,6 +255,7 @@ class _CheckSymptomsHealthMetricsState
                 CustomTextFormField(
                   title: "BMI",
                   hintText: "Enter BMI (e.g., 30.66)",
+                  keyboardType: TextInputType.number,
                   controller: _bmiController,
                   validator: (value) => _validateNumber(value, "BMI"),
                 ),
@@ -261,6 +263,7 @@ class _CheckSymptomsHealthMetricsState
                 CustomTextFormField(
                   title: "HbA1c Level",
                   hintText: "Enter HbA1c level (e.g., 4.6)",
+                  keyboardType: TextInputType.number,
                   controller: _hbA1cController,
                   validator: (value) => _validateNumber(value, "HbA1c Level"),
                 ),
@@ -269,6 +272,7 @@ class _CheckSymptomsHealthMetricsState
                   title: "Blood Glucose Level",
                   hintText: "Enter glucose level (e.g., 400)",
                   controller: _bloodGlucoseController,
+                  keyboardType: TextInputType.number,
                   validator: (value) =>
                       _validateNumber(value, "Blood Glucose Level"),
                 ),
