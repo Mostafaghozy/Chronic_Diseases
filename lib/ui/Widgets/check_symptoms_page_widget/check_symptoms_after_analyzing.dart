@@ -1,4 +1,3 @@
-import 'package:chronic_diseases/core/assets.dart';
 import 'package:chronic_diseases/core/widgets_core/custom_button.dart';
 import 'package:chronic_diseases/core/widgets_core/custom_item_list_tile_3.dart';
 import 'package:chronic_diseases/ui/Widgets/check_symptoms_page_widget/serve_details.dart';
@@ -205,11 +204,11 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(
-                            AssetsData.analyzingResultWithoutPercentageLogo,
-                            height: 40,
-                            width: 40,
-                          ),
+                          // Image.asset(
+                          //   AssetsData.analyzingResultWithoutPercentageLogo,
+                          //   height: 40,
+                          //   width: 40,
+                          // ),
                           SizedBox(width: 12),
                           Text(
                             riskLevel,
@@ -275,7 +274,7 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
                           ),
                           context: context,
                           builder: (BuildContext context) {
-                            return const ServeDetails();
+                            return ServeDetails();
                           },
                         );
                       },

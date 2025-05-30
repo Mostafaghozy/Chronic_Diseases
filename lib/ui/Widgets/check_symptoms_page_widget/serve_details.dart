@@ -2,15 +2,37 @@ import 'package:chronic_diseases/core/widgets_core/custom_button.dart';
 import 'package:chronic_diseases/core/widgets_core/custom_container_4.dart';
 import 'package:chronic_diseases/core/widgets_core/custom_container_5.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/app_color.dart';
 import '../../../../../../core/assets.dart';
 import '../../../../../../core/styles.dart';
+import 'package:chronic_diseases/models/checkSymptoms/cubit.dart';
+import 'package:chronic_diseases/models/checkSymptoms/state.dart';
+import 'package:dashed_circular_progress_bar/dashed_circular_progress_bar.dart';
 
 class ServeDetails extends StatelessWidget {
-  const ServeDetails({super.key});
+  ServeDetails({super.key});
+  final ValueNotifier<double> _valueNotifier = ValueNotifier(0);
 
   @override
   Widget build(BuildContext context) {
+    final state = BlocProvider.of<CheckSymptomsCubit>(context).state;
+    final result = state is CheckSymptomsSuccess ? state.result : null;
+    final riskPercentage = result?.riskPercentage ?? 60.0;
+    final riskLevel =
+        result?.riskLevel ?? "Severe Risk 50-100%\nSeek Medical Help ASAP";
+    final recommendation =
+        result?.recommendation ??
+        "Your symptoms suggest a\nmoderate risk of Diabetes";
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _valueNotifier.value = riskPercentage;
+    });
+    Color progressColor = Colors.green;
+    if (riskPercentage >= 70) {
+      progressColor = Colors.red;
+    } else if (riskPercentage >= 40) {
+      progressColor = Colors.orange;
+    }
     return Padding(
       padding: const EdgeInsets.only(left: 16, top: 13),
       child: SingleChildScrollView(
@@ -41,10 +63,42 @@ class ServeDetails extends StatelessWidget {
                 //   height: 64,
                 //   width: 64,
                 // ),
+                DashedCircularProgressBar.square(
+                  dimensions: 80,
+                  valueNotifier: _valueNotifier,
+                  progress: riskPercentage,
+                  startAngle: 225,
+                  sweepAngle: 270,
+                  foregroundColor: progressColor,
+                  backgroundColor: const Color(0xffeeeeee),
+                  foregroundStrokeWidth: 10,
+                  backgroundStrokeWidth: 10,
+                  animation: true,
+                  seekSize: 6,
+                  seekColor: const Color(0xffeeeeee),
+                  child: Center(
+                    child: ValueListenableBuilder(
+                      valueListenable: _valueNotifier,
+                      builder: (_, double value, __) => Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '${value}%',
+                            style: TextStyle(
+                              color: progressColor,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(width: 20),
                 Text(
                   textAlign: TextAlign.start,
-                  "Severe Risk 50-100%\nSeek Medical Help ASAP",
+                  riskLevel,
                   style: Styles.textStyle16.copyWith(
                     color: AppColor.kBlackColor,
                     fontWeight: FontWeight.w700,
@@ -54,10 +108,7 @@ class ServeDetails extends StatelessWidget {
               ],
             ),
             SizedBox(height: 24),
-            Text(
-              "Your symptoms indicate a high risk. Seek medical attention immediately.",
-              style: Styles.textStyle16,
-            ),
+            Text(recommendation, style: Styles.textStyle16),
             SizedBox(height: 48),
             Align(
               alignment: Alignment.topLeft,
