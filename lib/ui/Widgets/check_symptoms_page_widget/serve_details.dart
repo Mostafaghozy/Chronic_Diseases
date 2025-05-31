@@ -246,7 +246,7 @@ class ServeDetails extends StatelessWidget {
             ),
             SizedBox(height: 70),
             CustomButton(
-              text: "Consult a Doctor",
+              text: "Connect with healthcare",
               style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600),
               onTap: () {
                 Navigator.push(
@@ -257,7 +257,7 @@ class ServeDetails extends StatelessWidget {
                 );
               },
               color: AppColor.kSecondaryGreenColor,
-              width: 365,
+              width: 360,
               height: 52,
               borderRadius: 24,
             ),

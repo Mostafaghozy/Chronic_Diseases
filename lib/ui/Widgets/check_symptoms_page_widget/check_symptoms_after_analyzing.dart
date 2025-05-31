@@ -1,6 +1,7 @@
 import 'package:chronic_diseases/core/widgets_core/custom_button.dart';
 import 'package:chronic_diseases/core/widgets_core/custom_item_list_tile_3.dart';
 import 'package:chronic_diseases/ui/Widgets/check_symptoms_page_widget/serve_details.dart';
+import 'package:chronic_diseases/ui/screen/HealthCheckSummary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chronic_diseases/models/checkSymptoms/cubit.dart';
@@ -121,7 +122,7 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const CheckSymptomsOverview(),
+                            builder: (context) => const HealthCheckSummary(),
                           ),
                         );
                       },

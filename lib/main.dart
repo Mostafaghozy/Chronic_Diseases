@@ -13,6 +13,7 @@ import 'package:chronic_diseases/ui/screen/check_symptoms_page_view.dart';
 import 'package:chronic_diseases/ui/screen/home_page_view.dart';
 import 'package:chronic_diseases/ui/screen/HealthCheckSummary.dart';
 import 'package:chronic_diseases/ui/screen/notification_page_view.dart';
+import 'package:chronic_diseases/ui/screen/ReportsScreen.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,8 +41,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: '/welcome',
         theme: ThemeData(
-          // scaffoldBackgroundColor: Colors.white,
-          // colorScheme: ColorScheme.fromSwatch().copyWith(surface: Colors.white),
+          scaffoldBackgroundColor: Colors.white,
+          colorScheme: ColorScheme.fromSwatch().copyWith(surface: Colors.white),
         ),
         // routes: {
         //   '/welcome': (context) => Welcometomediva(),
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
         //   '/home': (context) => HomePageView(),
         //   // Add more routes as needed
         // },
-        home: Welcometomediva(),
+        home: HomePageView(),
         // home: CheckSymptomsPageView(),
       ),
     );

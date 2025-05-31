@@ -3,6 +3,7 @@ import 'package:chronic_diseases/core/app_color.dart';
 import 'package:chronic_diseases/ui/Widgets/home_page_widgets/home_page_view_body.dart';
 import 'package:chronic_diseases/ui/screen/check_symptoms_page_view.dart';
 import 'package:chronic_diseases/ui/screen/profile_page_view.dart';
+import 'package:chronic_diseases/ui/screen/ReportsScreen.dart';
 import 'package:flutter/material.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
@@ -41,7 +42,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         onPageChanged: _onPageChanged,
         children: const [
           HomePageViewBody(),
-          Center(child: Text("Reports")),
+          ReportsScreen(),
           CheckSymptomsPageView(),
           ProfilePageView(),
         ],
