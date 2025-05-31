@@ -3,12 +3,59 @@ import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/Button_widget.dart';
 import 'package:chronic_diseases/ui/Widgets/check_symptoms_page_widget/immediate_help_card2.dart';
 import 'package:flutter/material.dart';
 import 'package:chronic_diseases/ui/Widgets/check_symptoms_page_widget/immediate_help_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:chronic_diseases/models/checkSymptoms/cubit.dart';
+import 'package:chronic_diseases/models/checkSymptoms/state.dart';
 
 class HealthCheckSummary extends StatelessWidget {
   const HealthCheckSummary({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final state = BlocProvider.of<CheckSymptomsCubit>(context).state;
+    final result = state is CheckSymptomsSuccess ? state.result : null;
+    final inputData = state is CheckSymptomsSuccess ? state.inputData : null;
+    final riskPercentage = result?.riskPercentage ?? 60.0;
+    final riskLevel =
+        result?.riskLevel ?? "Severe Risk 50-100%\nSeek Medical Help ASAP";
+    final recommendation =
+        result?.recommendation ??
+        "Your symptoms suggest a\nmoderate risk of Diabetes";
+
+    Color progressColor = Colors.green;
+    if (riskPercentage >= 70) {
+      progressColor = Colors.red;
+    } else if (riskPercentage >= 40) {
+      progressColor = Colors.orange;
+    }
+
+    // Helper functions to format the display values
+    String formatHypertension(int? hypertension) {
+      print("Hypertension value🤣🤣: $hypertension");
+      if (hypertension == 1) {
+        return "Yes";
+      } else {
+        return "No";
+      }
+    }
+
+    String formatHeartDisease(int? heartDisease) {
+      if (heartDisease == 1) {
+        return "Yes";
+      } else {
+        return "No";
+      }
+    }
+
+    String formatSmokingHistory(String? smokingHistory) {
+      if (smokingHistory == null || smokingHistory.isEmpty) {
+        return "Not specified";
+      }
+      // Capitalize first letter
+      return smokingHistory.substring(0, 1).toUpperCase() +
+          smokingHistory.substring(1);
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -125,21 +172,21 @@ class HealthCheckSummary extends StatelessWidget {
                           width: 80,
                           height: 80,
                           child: CircularProgressIndicator(
-                            value: 0.784, // 78.4%
+                            value: (riskPercentage / 100), // 78.4%
                             strokeWidth: 8,
                             backgroundColor: Colors.grey[200],
-                            valueColor: const AlwaysStoppedAnimation<Color>(
-                              Color(0xFFFF5722),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              progressColor,
                             ),
                           ),
                         ),
-                        const Center(
+                        Center(
                           child: Text(
-                            '78.4%',
+                            riskPercentage.toStringAsFixed(1) + '%',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFFFF5722),
+                              color: progressColor,
                             ),
                           ),
                         ),
@@ -149,21 +196,21 @@ class HealthCheckSummary extends StatelessWidget {
 
                   const SizedBox(width: 20),
 
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Severe Risk 70-100%',
-                          style: TextStyle(
+                          riskLevel,
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
                           ),
                         ),
                         Text(
-                          'Seek Medical Help ASAP',
-                          style: TextStyle(
+                          recommendation,
+                          style: const TextStyle(
                             fontSize: 14,
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
@@ -209,18 +256,80 @@ class HealthCheckSummary extends StatelessWidget {
             const SizedBox(height: 16),
 
             // Symptoms Cards
-            Row(
-              children: [
-                Expanded(
-                  child: _buildSymptomCard('Hypertension', '140/90 mmHg'),
-                ),
-                const SizedBox(width: 12),
-                Expanded(child: _buildSymptomCard('Heart\nDisease', 'Yes')),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _buildSymptomCard('Smoking\nHistory', 'Regular'),
-                ),
-              ],
+            SizedBox(
+              height: 70,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  if (inputData != null) ...[
+                    Expanded(
+                      child: _buildSymptomCard(
+                        "Gender",
+                        inputData.gender.isNotEmpty
+                            ? inputData.gender
+                            : "Not specified",
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: _buildSymptomCard("Age", "${inputData.age} years"),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: _buildSymptomCard(
+                        "Hypertension",
+                        "${inputData.hypertensionActualValue} (mmHg)",
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: _buildSymptomCard(
+                        "Heart Disease",
+                        formatHeartDisease(inputData.heartDisease),
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: _buildSymptomCard(
+                        "Smoking History",
+                        formatSmokingHistory(inputData.smokingHistory),
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: _buildSymptomCard(
+                        'BMI',
+                        inputData.bmi.toStringAsFixed(1),
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: _buildSymptomCard(
+                        'HbA1c Level',
+                        "${inputData.hbA1cLevel.toStringAsFixed(1)}%",
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: _buildSymptomCard(
+                        'Blood Glucose',
+                        "${inputData.bloodGlucoseLevel.toStringAsFixed(0)} mg/dL",
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                  ] else ...[
+                    // Fallback to original hardcoded values if no input data
+                    Expanded(child: _buildSymptomCard('Hypertension', 'N/A')),
+                    SizedBox(width: 12),
+                    Expanded(child: _buildSymptomCard('Heart Disease', 'N/A')),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: _buildSymptomCard('Smoking\nHistory', 'N/A'),
+                    ),
+                    SizedBox(width: 12),
+                  ],
+                ],
+              ),
             ),
 
             const SizedBox(height: 32),

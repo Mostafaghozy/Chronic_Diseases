@@ -163,7 +163,7 @@ class ServeDetails extends StatelessWidget {
                     SizedBox(width: 12),
                     CustomContainer4(
                       title: "Hypertension",
-                      subTitle: formatHypertension(inputData.hypertension),
+                      subTitle: "${inputData.hypertensionActualValue} (mmHg)",
                     ),
                     SizedBox(width: 12),
                     CustomContainer4(

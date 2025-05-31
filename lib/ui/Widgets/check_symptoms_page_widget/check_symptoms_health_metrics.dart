@@ -53,6 +53,7 @@ class _CheckSymptomsHealthMetricsState
         gender: _genderController.text.trim(),
         age: int.tryParse(_ageController.text) ?? 0,
         hypertension: _parseHypertension(_hypertensionController.text),
+        hypertensionActualValue: (_hypertensionController.text).trim(),
         heartDisease: _parseHeartDisease(_heartDiseaseController.text),
         smokingHistory: _smokingHistoryController.text.trim(),
         bmi: double.tryParse(_bmiController.text) ?? 0.0,

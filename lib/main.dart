@@ -50,7 +50,8 @@ class MyApp extends StatelessWidget {
         //   '/home': (context) => HomePageView(),
         //   // Add more routes as needed
         // },
-        home: Welcometomediva(),
+        // home: Welcometomediva(),
+        home: CheckSymptomsPageView(),
       ),
     );
   }

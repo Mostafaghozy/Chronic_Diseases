@@ -7,7 +7,7 @@ class PredictionRequestModel {
   final double bmi;
   final double hbA1cLevel;
   final int bloodGlucoseLevel;
-
+  final String hypertensionActualValue;
   PredictionRequestModel({
     required this.gender,
     required this.age,
@@ -17,11 +17,15 @@ class PredictionRequestModel {
     required this.bmi,
     required this.hbA1cLevel,
     required this.bloodGlucoseLevel,
+    this.hypertensionActualValue = 'N/A',
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'gender': gender,
+      //make gender first letter alway capital
+      'gender':
+          gender.substring(0, 1).toUpperCase() +
+          gender.substring(1).toLowerCase(),
       'age': age,
       'hypertension': hypertension,
       'heart_disease': heartDisease,
