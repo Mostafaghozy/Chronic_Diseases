@@ -50,12 +50,9 @@ class _SymptomcheckerState extends State<Symptomchecker> {
                         ),
                       ),
 
-                      const SizedBox(
-                        height: 16,
-                      ),
+                      const SizedBox(height: 16),
 
                       // Subtitle text
-
                       const Center(
                         child: Text(
                           "Not feeling well? Our AI-powered Symptom \nChecker Helps You Identify Potential Health \nIssues Quickly And Easily. Get Personalized \nRecommendations In Just A Few Taps.",
@@ -67,15 +64,9 @@ class _SymptomcheckerState extends State<Symptomchecker> {
                         ),
                       ),
 
-                      const SizedBox(
-                        height: 50,
-                      ),
+                      const SizedBox(height: 50),
 
-                      Center(
-                        child: Image.asset(
-                          'assets/CARD.png',
-                        ),
-                      ),
+                      Center(child: Image.asset('assets/CARD.png')),
                     ],
                   ),
                 ],
@@ -87,9 +78,7 @@ class _SymptomcheckerState extends State<Symptomchecker> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => Healthtracking(),
-                  ),
+                  MaterialPageRoute(builder: (context) => Healthtracking()),
                 );
               },
             ),

@@ -1,5 +1,4 @@
 import 'package:chronic_diseases/core/assets.dart';
-import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/Button_widget.dart';
 import 'package:chronic_diseases/ui/Widgets/check_symptoms_page_widget/immediate_help_card2.dart';
 import 'package:flutter/material.dart';
 import 'package:chronic_diseases/ui/Widgets/check_symptoms_page_widget/immediate_help_card.dart';
@@ -27,16 +26,6 @@ class HealthCheckSummary extends StatelessWidget {
       progressColor = Colors.red;
     } else if (riskPercentage >= 40) {
       progressColor = Colors.orange;
-    }
-
-    // Helper functions to format the display values
-    String formatHypertension(int? hypertension) {
-      print("Hypertension value🤣🤣: $hypertension");
-      if (hypertension == 1) {
-        return "Yes";
-      } else {
-        return "No";
-      }
     }
 
     String formatHeartDisease(int? heartDisease) {
