@@ -21,7 +21,7 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
     return BlocBuilder<CheckSymptomsCubit, CheckSymptomsState>(
       builder: (context, state) {
         if (state is CheckSymptomsLoading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(color: AppColor.kPrimaryColor),
           );
         }
@@ -31,21 +31,21 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.error_outline, size: 64, color: Colors.red),
-                SizedBox(height: 16),
+                const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                const SizedBox(height: 16),
                 Text(
                   'Error occurred',
                   style: Styles.textStyle20.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   state.message,
                   textAlign: TextAlign.center,
                   style: Styles.textStyle16,
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 CustomButton(
                   text: "Try Again",
                   style: Styles.textStyle16.copyWith(
@@ -60,16 +60,32 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
               ],
             ),
           );
-        } // Get the prediction result from successful state
-        final result = state is CheckSymptomsSuccess ? state.result : null;
-        final riskPercentage = result?.riskPercentage ?? 60.0;
+        }
+
+        if (!(state is CheckSymptomsSuccess)) {
+          return const Center(
+            child: CircularProgressIndicator(color: AppColor.kPrimaryColor),
+          );
+        }
+
+        final result = state.result;
+        if (result == null) {
+          return Center(
+            child: Text(
+              'No results available',
+              style: Styles.textStyle20.copyWith(fontWeight: FontWeight.bold),
+            ),
+          );
+        }
+
+        final riskPercentage = result.riskPercentage ?? 60.0;
         final riskLevel =
-            result?.riskLevel ?? "Severe Risk 50-100%\nSeek Medical Help ASAP";
+            result.riskLevel ?? "Severe Risk 50-100%\nSeek Medical Help ASAP";
         final recommendation =
-            result?.recommendation ??
+            result.recommendation ??
             "Your symptoms suggest a\nmoderate risk of Diabetes";
         final actions =
-            result?.actions ??
+            result.actions ??
             [
               "Contact a healthcare professional\nimmediately.",
               "Visit a Clinic or Hospital if Symptoms Worsen",
@@ -143,8 +159,8 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      textAlign: TextAlign.center,
                       "Based on Your\nSymptoms, Here's\nWhat We Found!",
+                      textAlign: TextAlign.center,
                       style: Styles.textStyle32.copyWith(height: 1),
                     ),
                     SizedBox(height: 24),

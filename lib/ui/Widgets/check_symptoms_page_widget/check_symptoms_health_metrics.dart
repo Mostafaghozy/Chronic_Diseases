@@ -61,7 +61,7 @@ class _CheckSymptomsHealthMetricsState
         bloodGlucoseLevel: int.tryParse(_bloodGlucoseController.text) ?? 0,
       );
 
-      context.read<CheckSymptomsCubit>().predictSymptoms(request);
+      Navigator.pop(context); // Close current bottom sheet
 
       showModalBottomSheet(
         backgroundColor: AppColor.kWhiteColor,
@@ -72,6 +72,7 @@ class _CheckSymptomsHealthMetricsState
         ),
         context: context,
         builder: (BuildContext context) {
+          context.read<CheckSymptomsCubit>().predictSymptoms(request);
           return const CheckSymptomsAnalyzing();
         },
       );

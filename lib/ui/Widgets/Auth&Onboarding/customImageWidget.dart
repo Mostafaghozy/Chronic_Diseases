@@ -19,7 +19,7 @@ class CustomImageWidget extends StatelessWidget {
       child: Image.asset(
         'assets/CARD 2.png',
         width: double.infinity,
-        height: 530,
+        height: 500,
       ),
     );
   }

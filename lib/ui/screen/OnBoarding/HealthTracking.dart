@@ -70,7 +70,7 @@ class _HealthtrackingState extends State<Healthtracking> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            // const SizedBox(height: 20),
             Button(
               text: "Continue",
               onPressed: () {

@@ -39,19 +39,20 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/welcome',
+        initialRoute: '/IntroScreen',
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
           colorScheme: ColorScheme.fromSwatch().copyWith(surface: Colors.white),
         ),
-        // routes: {
-        //   '/welcome': (context) => Welcometomediva(),
-        //   '/login': (context) => Loginscreen(),
-        //   '/signup': (context) => PatientScreen(),
-        //   '/home': (context) => HomePageView(),
-        //   // Add more routes as needed
-        // },
-        home: HomePageView(),
+        routes: {
+          '/IntroScreen': (context) => IntroScreen(),
+          '/welcome': (context) => Welcometomediva(),
+          '/login': (context) => Loginscreen(),
+          '/signup': (context) => PatientScreen(),
+          '/home': (context) => HomePageView(),
+          // Add more routes as needed
+        },
+        // home: HomePageView(),
         // home: CheckSymptomsPageView(),
       ),
     );
