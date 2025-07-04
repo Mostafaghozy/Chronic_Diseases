@@ -1,8 +1,8 @@
 import 'package:chronic_diseases/ui/screen/notification_page_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/app_color.dart';
-import '../../../../../../core/styles.dart';
+import '../../../../../../../core/app_color.dart';
+import '../../../../../../../core/styles.dart';
 
 class HeadLineRow extends StatelessWidget {
   const HeadLineRow({super.key});
@@ -24,9 +24,7 @@ class HeadLineRow extends StatelessWidget {
             ),
             Text(
               "UNKNOWN PERSON",
-              style: Styles.textStyle16.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+              style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600),
             ),
           ],
         ),

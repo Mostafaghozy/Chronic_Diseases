@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/app_color.dart';
-import '../../../../../../core/styles.dart';
+import '../../../../../../../core/app_color.dart';
+import '../../../../../../../core/styles.dart';
 
 class TipsContainer extends StatelessWidget {
   const TipsContainer({super.key});

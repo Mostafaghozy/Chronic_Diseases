@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/app_color.dart';
-import '../../../../../../core/styles.dart';
+import '../../../../../../../core/app_color.dart';
+import '../../../../../../../core/styles.dart';
 
 class QuickAccessText extends StatelessWidget {
   const QuickAccessText({super.key});

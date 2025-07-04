@@ -2,7 +2,7 @@ import 'package:chronic_diseases/core/assets.dart';
 import 'package:chronic_diseases/core/styles.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/app_color.dart';
+import '../../../../../../../core/app_color.dart';
 
 class YourHealthInsightsItem extends StatelessWidget {
   const YourHealthInsightsItem({super.key});

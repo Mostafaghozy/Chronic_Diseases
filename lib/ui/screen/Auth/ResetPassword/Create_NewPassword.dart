@@ -1,35 +1,35 @@
+import 'package:chronic_diseases/models/CreatePassword_Code/cubit.dart';
+import 'package:chronic_diseases/models/CreatePassword_Code/state.dart';
 import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/Button_widget.dart';
 import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/Password_Widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:chronic_diseases/models/ChangePassword/cubit.dart';
-import 'package:chronic_diseases/models/ChangePassword/state.dart';
 
 import 'package:chronic_diseases/ui/screen/Auth/ResetPassword/DoneResetPassword.dart';
 
-class NewPassword extends StatelessWidget {
-  final String email;
+class CreateNewPassword extends StatelessWidget {
+  final String? email;
   final String? verificationCode;
 
-  const NewPassword({
-    super.key,
-    required this.email,
-    this.verificationCode,
-  });
+  const CreateNewPassword({super.key, this.email, this.verificationCode});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChangePasswordCubit(),
+      create: (context) => ResetPasswordCubit()
+        ..setEmail(email ?? '')
+        ..setVerificationCode(verificationCode ?? ''),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                color: Colors.black),
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.black,
+            ),
             onPressed: () {
               if (Navigator.canPop(context)) {
                 Navigator.pop(context);
@@ -37,31 +37,46 @@ class NewPassword extends StatelessWidget {
             },
           ),
         ),
-        body: BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
+        body: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
           listener: (context, state) {
-            if (state is ChangePasswordErrorState) {
+            if (state is ResetPasswordFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.error)),
+                SnackBar(
+                  content: Text(state.error),
+                  duration: const Duration(seconds: 3),
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.red,
+                ),
               );
             }
-            if (state is ChangePasswordSuccessState) {
+            if (state is ResetPasswordSuccess) {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const Doneresetpassword(),
                 ),
               );
+              // Show snackbar after navigation
+              Future.delayed(const Duration(milliseconds: 300), () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Password changed successfully'),
+                    duration: Duration(seconds: 3),
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              });
             }
           },
           builder: (context, state) {
-            final cubit = context.read<ChangePasswordCubit>();
-            final isLoading = state is LoadingChangePasswordState;
-            final canSubmit = state is PasswordValidationState &&
+            final cubit = context.read<ResetPasswordCubit>();
+            final isLoading = state is ResetPasswordLoading;
+            final canSubmit =
+                state is ResetPasswordValidation &&
                 state.isPasswordValid &&
                 state.doPasswordsMatch;
 
-            // ignore: unused_local_variable
-            var button = Button;
             return SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -78,9 +93,10 @@ class NewPassword extends StatelessWidget {
                     child: Text(
                       'Create a new password',
                       style: TextStyle(
-                          fontSize: 30,
-                          fontFamily: 'Nunito-SemiBold.ttf',
-                          fontWeight: FontWeight.bold),
+                        fontSize: 30,
+                        fontFamily: 'Nunito-SemiBold.ttf',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -89,9 +105,10 @@ class NewPassword extends StatelessWidget {
                       'Please choose a password that hasn\'t been \nused before. Must be at least 8 characters.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Nunito-SemiBold.ttf',
-                          color: Colors.grey[400]),
+                        fontSize: 14,
+                        fontFamily: 'Nunito-SemiBold.ttf',
+                        color: Colors.grey[400],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -99,6 +116,12 @@ class NewPassword extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: PasswordWidget(
                       showConfirmPassword: true,
+                      isPasswordValid: state is ResetPasswordValidation
+                          ? state.isPasswordValid
+                          : false,
+                      doPasswordsMatch: state is ResetPasswordValidation
+                          ? state.doPasswordsMatch
+                          : false,
                       onPasswordsChanged: (newPass, confirmPass) {
                         cubit.validatePassword(newPass);
                         cubit.validateConfirmPassword(confirmPass);
@@ -107,13 +130,10 @@ class NewPassword extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Button(
-                    text: 'Reset password',
+                    text: isLoading ? 'Resetting...' : 'Reset password',
                     onPressed: canSubmit && !isLoading
                         ? () {
-                            cubit.changePassword(
-                              email: email,
-                              verificationCode: verificationCode,
-                            );
+                            cubit.resetPasswordWithStoredValues();
                           }
                         : null,
                   ),

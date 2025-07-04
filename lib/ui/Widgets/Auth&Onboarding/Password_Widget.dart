@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:chronic_diseases/models/ChangePassword/cubit.dart';
-import 'package:chronic_diseases/models/ChangePassword/state.dart';
 
 class PasswordWidget extends StatefulWidget {
   final bool showConfirmPassword;
   final TextEditingController? controller;
   final Function(String, String)? onPasswordsChanged;
 
+  final TextEditingController? passwordController;
+  final TextEditingController? confirmPasswordController;
+
   final String? passwordLabel;
   final String? confirmPasswordLabel;
+
+  // Add these parameters to control validation visuals externally
+  final bool? isPasswordValid;
+  final bool? doPasswordsMatch;
 
   const PasswordWidget({
     super.key,
     this.showConfirmPassword = true,
     this.controller,
     this.onPasswordsChanged,
+    this.passwordController,
+    this.confirmPasswordController,
     this.passwordLabel,
     this.confirmPasswordLabel,
+    this.isPasswordValid,
+    this.doPasswordsMatch,
   });
 
   @override
@@ -26,31 +34,37 @@ class PasswordWidget extends StatefulWidget {
 }
 
 class _PasswordWidgetState extends State<PasswordWidget> {
-  late TextEditingController _newPasswordController;
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  late TextEditingController _passwordController;
+  late TextEditingController _confirmPasswordController;
   bool _obscureNewPassword = true;
   bool _obscureConfirmPassword = true;
 
   @override
   void initState() {
     super.initState();
-    _newPasswordController = widget.controller ?? TextEditingController();
+    _passwordController =
+        widget.passwordController ??
+        widget.controller ??
+        TextEditingController();
+    _confirmPasswordController =
+        widget.confirmPasswordController ?? TextEditingController();
   }
 
   @override
   void dispose() {
-    if (widget.controller == null) {
-      _newPasswordController.dispose();
+    if (widget.passwordController == null && widget.controller == null) {
+      _passwordController.dispose();
     }
-    _confirmPasswordController.dispose();
+    if (widget.confirmPasswordController == null) {
+      _confirmPasswordController.dispose();
+    }
     super.dispose();
   }
 
   void _notifyPasswordChange() {
     if (widget.onPasswordsChanged != null) {
       widget.onPasswordsChanged!(
-        _newPasswordController.text,
+        _passwordController.text,
         _confirmPasswordController.text,
       );
     }
@@ -58,114 +72,100 @@ class _PasswordWidgetState extends State<PasswordWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChangePasswordCubit, ChangePasswordState>(
-      builder: (context, state) {
-        bool isPasswordValid = false;
-        bool doPasswordsMatch = false;
+    final isPasswordValid = widget.isPasswordValid ?? false;
+    final doPasswordsMatch = widget.doPasswordsMatch ?? false;
 
-        if (state is PasswordValidationState) {
-          isPasswordValid = state.isPasswordValid;
-          doPasswordsMatch = state.doPasswordsMatch;
-        }
-
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // ====== Password Label ======
-              if (widget.passwordLabel != null) ...[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.passwordLabel!,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontFamily: 'Nunito',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // ====== Password Label ======
+          if (widget.passwordLabel != null) ...[
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                widget.passwordLabel!,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontFamily: 'Nunito',
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 15),
-              ],
-
-              // ====== Password Field ======
-              _buildPasswordField(
-                hintText:
-                    widget.showConfirmPassword ? 'New Password' : 'Password',
-                prefixIcon: Transform.scale(
-                  scale: 0.5,
-                  child: SvgPicture.asset(
-                    isPasswordValid
-                        ? 'assets/icons/signup/green/Lock-GREEN.svg'
-                        : 'assets/icons/signup/Lock.svg',
-                  ),
-                ),
-                controller: _newPasswordController,
-                onChanged: (value) {
-                  context.read<ChangePasswordCubit>().validatePassword(value);
-                  _notifyPasswordChange();
-                },
-                isObscure: _obscureNewPassword,
-                toggleObscure: () {
-                  setState(() {
-                    _obscureNewPassword = !_obscureNewPassword;
-                  });
-                },
               ),
+            ),
+            const SizedBox(height: 15),
+          ],
 
-              if (widget.showConfirmPassword) ...[
-                const SizedBox(height: 15),
-
-                // ====== Confirm Password Label ======
-                if (widget.confirmPasswordLabel != null) ...[
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      widget.confirmPasswordLabel!,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: 'Nunito',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                ],
-
-                // ====== Confirm Password Field ======
-                _buildPasswordField(
-                  hintText: 'Confirm Password',
-                  prefixIcon: Transform.scale(
-                    scale: 0.5,
-                    child: SvgPicture.asset(
-                      doPasswordsMatch
-                          ? 'assets/icons/signup/green/Lock-GREEN.svg'
-                          : 'assets/icons/signup/Lock.svg',
-                    ),
-                  ),
-                  controller: _confirmPasswordController,
-                  onChanged: (value) {
-                    context
-                        .read<ChangePasswordCubit>()
-                        .validateConfirmPassword(value);
-                    _notifyPasswordChange();
-                  },
-                  isObscure: _obscureConfirmPassword,
-                  toggleObscure: () {
-                    setState(() {
-                      _obscureConfirmPassword = !_obscureConfirmPassword;
-                    });
-                  },
-                ),
-              ],
-              const SizedBox(height: 30),
-            ],
+          // ====== Password Field ======
+          _buildPasswordField(
+            hintText: widget.showConfirmPassword ? 'New Password' : 'Password',
+            prefixIcon: Transform.scale(
+              scale: 0.5,
+              child: SvgPicture.asset(
+                isPasswordValid
+                    ? 'assets/icons/signup/green/Lock-GREEN.svg'
+                    : 'assets/icons/signup/Lock.svg',
+              ),
+            ),
+            controller: _passwordController,
+            onChanged: (value) {
+              _notifyPasswordChange();
+            },
+            isObscure: _obscureNewPassword,
+            toggleObscure: () {
+              setState(() {
+                _obscureNewPassword = !_obscureNewPassword;
+              });
+            },
           ),
-        );
-      },
+
+          if (widget.showConfirmPassword) ...[
+            const SizedBox(height: 15),
+
+            // ====== Confirm Password Label ======
+            if (widget.confirmPasswordLabel != null) ...[
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.confirmPasswordLabel!,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontFamily: 'Nunito',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+            ],
+
+            // ====== Confirm Password Field ======
+            _buildPasswordField(
+              hintText: 'Confirm Password',
+              prefixIcon: Transform.scale(
+                scale: 0.5,
+                child: SvgPicture.asset(
+                  doPasswordsMatch
+                      ? 'assets/icons/signup/green/Lock-GREEN.svg'
+                      : 'assets/icons/signup/Lock.svg',
+                ),
+              ),
+              controller: _confirmPasswordController,
+              onChanged: (value) {
+                _notifyPasswordChange();
+              },
+              isObscure: _obscureConfirmPassword,
+              toggleObscure: () {
+                setState(() {
+                  _obscureConfirmPassword = !_obscureConfirmPassword;
+                });
+              },
+            ),
+          ],
+          const SizedBox(height: 30),
+        ],
+      ),
     );
   }
 
@@ -204,8 +204,10 @@ class _PasswordWidgetState extends State<PasswordWidget> {
           borderRadius: BorderRadius.circular(24),
           borderSide: BorderSide.none,
         ),
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 16,
+          horizontal: 20,
+        ),
       ),
     );
   }

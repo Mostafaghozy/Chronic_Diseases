@@ -1,7 +1,8 @@
-import 'package:chronic_diseases/models/ChangePassword/cubit.dart';
+import 'package:chronic_diseases/models/CreatePassword_Code/cubit.dart';
 import 'package:chronic_diseases/models/Login/cubit.dart';
+import 'package:chronic_diseases/models/SignUp/HealthCare/cubit.dart';
 import 'package:chronic_diseases/models/resetPassword/cubit.dart';
-
+import 'package:chronic_diseases/ui/screen/Auth/ResetPassword/ConfirmationCode.dart';
 import 'package:chronic_diseases/ui/screen/Auth/SignUp/healthCarePr.dart';
 import 'package:chronic_diseases/ui/screen/Auth/SignUp/healthcareInformation.dart';
 import 'package:chronic_diseases/ui/screen/Auth/SignUp/patient.dart';
@@ -18,7 +19,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:chronic_diseases/models/checkSymptoms/cubit.dart'; // Add this import
+import 'package:chronic_diseases/models/checkSymptoms/cubit.dart';
 
 void main() => runApp(
   DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()),
@@ -32,28 +33,31 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => LoginCubit()),
+        BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
+        BlocProvider<HealthcareProviderCubit>(
+          create: (context) => HealthcareProviderCubit(),
+        ),
         BlocProvider(create: (_) => ForgetPasswordCubit()),
-        BlocProvider(create: (_) => ChangePasswordCubit()),
+
         BlocProvider(create: (_) => CheckSymptomsCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/IntroScreen',
+        // initialRoute: '/IntroScreen',
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
           colorScheme: ColorScheme.fromSwatch().copyWith(surface: Colors.white),
         ),
-        routes: {
-          '/IntroScreen': (context) => IntroScreen(),
-          '/welcome': (context) => Welcometomediva(),
-          '/login': (context) => Loginscreen(),
-          '/signup': (context) => PatientScreen(),
-          '/home': (context) => HomePageView(),
-          // Add more routes as needed
-        },
-        // home: HomePageView(),
-        // home: CheckSymptomsPageView(),
+
+        // routes: {
+        //   '/IntroScreen': (context) => IntroScreen(),
+        //   '/welcome': (context) => Welcometomediva(),
+        //   '/login': (context) => Loginscreen(),
+        //   '/signup': (context) => PatientScreen(),
+        //   '/home': (context) => HomePageView(),
+        //   // Add more routes as needed
+        // },
+        home: ResetPassword(),
       ),
     );
   }

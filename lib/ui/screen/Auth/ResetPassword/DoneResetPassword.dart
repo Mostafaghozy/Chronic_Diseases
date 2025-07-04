@@ -1,3 +1,4 @@
+import 'package:chronic_diseases/ui/screen/home_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,11 +13,13 @@ class Doneresetpassword extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon:
-              const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.black,
+          ),
           onPressed: () {
             if (Navigator.canPop(context)) {
-              Navigator.pop(context); // الرجوع فقط إذا كانت هناك صفحة سابقة
+              Navigator.pop(context);
             }
           },
         ),
@@ -28,9 +31,7 @@ class Doneresetpassword extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset("assets/icons/Done_ring_round_fill.svg"),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
 
               Text(
                 'PASSWORD RESET!',
@@ -41,9 +42,8 @@ class Doneresetpassword extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 5), // مسافة بين العناصر
+              SizedBox(height: 5),
 
-              // الرسالة التأكيدية
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -56,19 +56,23 @@ class Doneresetpassword extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 30), // مسافة بين العناصر
+              SizedBox(height: 30),
 
               // زر "Enter to Mediva"
               ElevatedButton(
                 onPressed: () {
-                  // إضافة الوظيفة المطلوبة هنا
-                  print('Enter to Mediva clicked');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomePageView(),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFB5EF74), // لون الخلفية
+                  backgroundColor: Color(0xFFB5EF74),
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // زوايا دائرية
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: Text(

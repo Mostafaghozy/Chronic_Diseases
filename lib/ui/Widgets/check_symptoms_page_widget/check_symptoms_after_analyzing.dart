@@ -100,7 +100,7 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
         // Determine colors based on risk percentage
         Color progressColor = Colors.green;
         if (riskPercentage >= 70) {
-          progressColor = Colors.red;
+          progressColor = const Color.fromARGB(255, 200, 95, 87);
         } else if (riskPercentage >= 40) {
           progressColor = Colors.orange;
         }
@@ -160,10 +160,11 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
                   children: [
                     Text(
                       "Based on Your\nSymptoms, Here's\nWhat We Found!",
+
                       textAlign: TextAlign.center,
                       style: Styles.textStyle32.copyWith(height: 1),
                     ),
-                    SizedBox(height: 24),
+                    SizedBox(height: 10),
                     DashedCircularProgressBar.aspectRatio(
                       aspectRatio: 1, // width ÷ height
                       valueNotifier: _valueNotifier,
@@ -204,7 +205,7 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 24),
+                    SizedBox(height: 5),
                     Text(
                       textAlign: TextAlign.center,
                       recommendation,
