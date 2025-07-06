@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chronic_diseases/models/Login/state.dart';
 import 'package:chronic_diseases/models/Login/cubit.dart';
+import 'package:chronic_diseases/core/user_session.dart';
 
 class Loginscreen extends StatefulWidget {
   Loginscreen({super.key});
@@ -35,7 +36,7 @@ class _LoginscreenState extends State<Loginscreen> {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          // Navigate to home screen after successful login
+          // لا تحفظ هنا، الحفظ يتم في cubit بعد جلب اسم المستخدم الحقيقي من السيرفر
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const HomePageView()),

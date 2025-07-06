@@ -70,93 +70,108 @@ class _HealthcareinformationState extends State<Healthcareinformation> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 15),
-            Transform.translate(
-              offset: const Offset(15, 5),
-              child: const Text(
-                "License Number",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontFamily: 'Nunito',
-                  fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              // Expanded wraps only the scrollable form fields
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 15),
+                      Transform.translate(
+                        offset: const Offset(15, 5),
+                        child: const Text(
+                          "License Number",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Nunito',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      UsernameTextField(
+                        controller: _licenseController,
+                        hintText: 'Enter your license number',
+                        iconPath: "assets/icons/healthcare/Sertificate.svg",
+                      ),
+                      const SizedBox(height: 15),
+                      Transform.translate(
+                        offset: const Offset(15, 5),
+                        child: const Text(
+                          "Specialization",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Nunito',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      SimpleDropdown(
+                        iconPath: "assets/icons/healthcare/Mortarboard.svg",
+                        hintText: 'Choose your specialization',
+                        items: const [
+                          'GeneralPractitioner',
+                          'NursePractitioner',
+                          'Pharmacist',
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            selectedSpecialization = value;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      Transform.translate(
+                        offset: const Offset(15, 5),
+                        child: const Text(
+                          "Clinic/Hospital Name",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Nunito',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      SimpleDropdown(
+                        iconPath: "assets/icons/healthcare/stethoscope.svg",
+                        hintText: 'Select Clinic/Hospital',
+                        items: const [
+                          'SaudiGermanHospital',
+                          'MilitaryHospital',
+                          'KingFahdHospital',
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            selectedClinicOrHospital = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 15),
-            UsernameTextField(
-              controller: _licenseController,
-              hintText: 'Enter your license number',
-              iconPath: "assets/icons/healthcare/Sertificate.svg",
-            ),
-            const SizedBox(height: 15),
-            Transform.translate(
-              offset: const Offset(15, 5),
-              child: const Text(
-                "Specialization",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontFamily: 'Nunito',
-                  fontWeight: FontWeight.bold,
-                ),
+              const SizedBox(height: 20),
+              // Button is always visible at the bottom
+              Button(
+                text: "Done",
+                onPressed: _isFormValid() ? _returnData : null,
+                isLoading: false,
               ),
-            ),
-            const SizedBox(height: 15),
-            SimpleDropdown(
-              iconPath: "assets/icons/healthcare/Mortarboard.svg",
-              hintText: 'Choose your specialization',
-              items: const [
-                'GeneralPractitioner',
-                'NursePractitioner',
-                'Pharmacist',
-              ],
-              onChanged: (value) {
-                setState(() {
-                  selectedSpecialization = value;
-                });
-              },
-            ),
-            const SizedBox(height: 15),
-            Transform.translate(
-              offset: const Offset(15, 5),
-              child: const Text(
-                "Clinic/Hospital Name",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontFamily: 'Nunito',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            SimpleDropdown(
-              iconPath: "assets/icons/healthcare/stethoscope.svg",
-              hintText: 'Select Clinic/Hospital',
-              items: const [
-                'SaudiGermanHospital',
-                'MilitaryHospital',
-                'KingFahdHospital',
-              ],
-              onChanged: (value) {
-                setState(() {
-                  selectedClinicOrHospital = value;
-                });
-              },
-            ),
-            const Spacer(),
-            Button(
-              text: "Done",
-              onPressed: _isFormValid() ? _returnData : null,
-              isLoading: false,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:chronic_diseases/core/utils/colors.dart';
 import 'package:chronic_diseases/models/SignUp/HealthCare/cubit.dart';
 import 'package:chronic_diseases/models/SignUp/HealthCare/state.dart';
 import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/Button_widget.dart';
@@ -10,6 +11,7 @@ import 'package:chronic_diseases/ui/screen/Auth/SignUp/done.dart';
 import 'package:chronic_diseases/ui/screen/Auth/SignUp/healthcareInformation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:chronic_diseases/core/user_session.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HealthcarePr extends StatefulWidget {
@@ -20,6 +22,7 @@ class HealthcarePr extends StatefulWidget {
 }
 
 class _HealthcarePrState extends State<HealthcarePr> {
+  bool _navigated = false;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -109,6 +112,8 @@ class _HealthcarePrState extends State<HealthcarePr> {
     );
   }
 
+  // Widget to display registration status
+
   void _showSuccessSnackBar(String message) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
@@ -116,6 +121,68 @@ class _HealthcarePrState extends State<HealthcarePr> {
         content: Text(message),
         backgroundColor: Colors.green,
         duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
+  // Widget to display loading state
+
+  // Widget لعرض حالة التسجيل
+  Widget _buildStatusWidget(String message, Color color, IconData icon) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: color, size: 24),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              message,
+              style: TextStyle(
+                color: color,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Nunito',
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Widget لعرض حالة التحميل
+  Widget _buildLoadingWidget() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.blue.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.blue.withOpacity(0.3)),
+      ),
+      child: Column(
+        children: [
+          const CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+          ),
+          const SizedBox(height: 15),
+          Text(
+            'Registering...',
+            style: TextStyle(
+              color: ColorsManger.OnBoarding,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Nunito',
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -156,30 +223,32 @@ class _HealthcarePrState extends State<HealthcarePr> {
         ),
         body: BlocListener<HealthcareProviderCubit, HealthcareProviderState>(
           listener: (context, state) {
-            if (state is HealthcareProviderSuccess ||
-                state.runtimeType.toString() == 'PatientRegistrationSuccess') {
-              final message = (state as dynamic).message;
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(message),
-                  backgroundColor: Colors.green,
-                  duration: const Duration(seconds: 2),
-                ),
-              );
-              Future.delayed(const Duration(seconds: 1), () {
-                if (mounted) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Done()),
-                  );
-                }
-              });
+            print('State changed to: ${state.runtimeType}');
+            if (state is HealthcareProviderSuccess) {
+              print('Success state detected: ${state.message}');
+              UserSession.saveUsername(_usernameController.text.trim());
+
+              _showSuccessSnackBar('Registration successful!');
+
+              if (!_navigated) {
+                _navigated = true;
+                Future.delayed(const Duration(seconds: 2), () {
+                  if (mounted) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Done()),
+                    );
+                  }
+                });
+              }
             } else if (state is HealthcareProviderError) {
-              _showErrorSnackBar(state.error);
+              print('Error state detected: ${state.error}');
+              _showErrorSnackBar('Registration error: ${state.error}');
             }
           },
           child: BlocBuilder<HealthcareProviderCubit, HealthcareProviderState>(
             builder: (context, state) {
+              print('Building with state: ${state.runtimeType}');
               bool isLoading = state is HealthcareProviderLoading;
 
               return SingleChildScrollView(
@@ -190,6 +259,21 @@ class _HealthcarePrState extends State<HealthcarePr> {
                     children: [
                       const CustomToggleButtons(selectedIndex: 1),
                       const SizedBox(height: 15),
+
+                      if (state is HealthcareProviderLoading)
+                        _buildLoadingWidget()
+                      else if (state is HealthcareProviderSuccess)
+                        _buildStatusWidget(
+                          'Registration successful! Redirecting...',
+                          ColorsManger.OnBoarding,
+                          Icons.check_circle,
+                        )
+                      else if (state is HealthcareProviderError)
+                        _buildStatusWidget(
+                          'Registration error: ${state.error}',
+                          Colors.red,
+                          Icons.error,
+                        ),
 
                       // Username Field
                       Transform.translate(
@@ -209,7 +293,6 @@ class _HealthcarePrState extends State<HealthcarePr> {
                         controller: _usernameController,
                         hintText: 'Mediva User',
                       ),
-
                       // Email Field
                       const SizedBox(height: 15),
                       Transform.translate(
@@ -226,7 +309,6 @@ class _HealthcarePrState extends State<HealthcarePr> {
                       ),
                       const SizedBox(height: 15),
                       EmailWidget(controller: _emailController),
-
                       // Password Field
                       const SizedBox(height: 15),
                       PasswordWidget(
@@ -234,7 +316,6 @@ class _HealthcarePrState extends State<HealthcarePr> {
                         showConfirmPassword: false,
                         passwordLabel: "Password",
                       ),
-
                       // Healthcare Provider Information
                       const SizedBox(height: 15),
                       Transform.translate(
@@ -265,7 +346,6 @@ class _HealthcarePrState extends State<HealthcarePr> {
                                   const Healthcareinformation(),
                             ),
                           );
-
                           if (result != null &&
                               result is Map<String, dynamic>) {
                             setState(() {
@@ -280,7 +360,6 @@ class _HealthcarePrState extends State<HealthcarePr> {
                           }
                         },
                       ),
-
                       // Terms Checkbox
                       const SizedBox(height: 25),
                       TermsCircleCheckbox(
@@ -290,17 +369,31 @@ class _HealthcarePrState extends State<HealthcarePr> {
                           });
                         },
                       ),
-
                       // Sign Up Button
                       const SizedBox(height: 25),
                       Button(
                         text: "Sign Up",
                         onPressed: _isTermsAccepted && !isLoading
-                            ? _handleRegistration
+                            ? () {
+                                if (_validateForm()) {
+                                  context
+                                      .read<HealthcareProviderCubit>()
+                                      .registerHealthcareProvider(
+                                        username: _usernameController.text
+                                            .trim(),
+                                        emailAddress: _emailController.text
+                                            .trim(),
+                                        password: _passwordController.text,
+                                        licenseNumber: _licenseNumber,
+                                        specialization: _specialization,
+                                        clinicOrHospital: _clinicOrHospital,
+                                        termsAccepted: _isTermsAccepted,
+                                      );
+                                }
+                              }
                             : null,
                         isLoading: isLoading,
                       ),
-
                       // Footer
                       const SizedBox(height: 30),
                       const Center(

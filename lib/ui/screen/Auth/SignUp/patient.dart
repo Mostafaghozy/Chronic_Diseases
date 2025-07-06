@@ -10,6 +10,7 @@ import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/toggleButton.dart';
 import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/userNameWidget.dart';
 import 'package:chronic_diseases/ui/screen/Auth/SignUp/done.dart';
 import 'package:chronic_diseases/ui/screen/Auth/login/LoginScreen.dart';
+import 'package:chronic_diseases/core/user_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,6 +77,8 @@ class _PatientScreenState extends State<PatientScreen> {
         body: BlocConsumer<PatientRegistrationCubit, PatientRegistrationState>(
           listener: (context, state) {
             if (state is PatientRegistrationSuccess) {
+              // Save username to session
+              UserSession.saveUsername(_usernameController.text.trim());
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.message),

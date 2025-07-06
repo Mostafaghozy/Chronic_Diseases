@@ -3,9 +3,30 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../../core/app_color.dart';
 import '../../../../../../../core/styles.dart';
+import 'package:chronic_diseases/core/user_session.dart';
 
-class HeadLineRow extends StatelessWidget {
+class HeadLineRow extends StatefulWidget {
   const HeadLineRow({super.key});
+
+  @override
+  State<HeadLineRow> createState() => _HeadLineRowState();
+}
+
+class _HeadLineRowState extends State<HeadLineRow> {
+  String? username;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsername();
+  }
+
+  Future<void> _loadUsername() async {
+    final name = await UserSession.getUsername();
+    setState(() {
+      username = name;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +44,7 @@ class HeadLineRow extends StatelessWidget {
               ),
             ),
             Text(
-              "UNKNOWN PERSON",
+              username ?? "UNKNOWN PERSON",
               style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600),
             ),
           ],

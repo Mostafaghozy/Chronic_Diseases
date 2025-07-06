@@ -1,5 +1,6 @@
 import 'package:chronic_diseases/models/Login/state.dart';
 import 'package:dio/dio.dart';
+import 'package:chronic_diseases/core/user_session.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -29,10 +30,22 @@ class LoginCubit extends Cubit<LoginState> {
       print('Response data: ${response.data}');
 
       if (response.statusCode == 200) {
-        // يمكنك حفظ الـ token هنا إذا كان الـ API يرجع token
-        // final token = response.data['token'];
-        // await _saveToken(token);
-
+        // استخراج اسم المستخدم من الاستجابة إذا كان متاحًا
+        String? username;
+        if (response.data is Map && response.data.containsKey('username')) {
+          username = response.data['username'];
+        } else if (response.data is Map &&
+            response.data.containsKey('userName')) {
+          username = response.data['userName'];
+        }
+        if (username != null) {
+          // حفظ اسم المستخدم في التخزين المحلي
+          // ignore: use_build_context_synchronously
+          await Future.delayed(Duration.zero); // لضمان عدم وجود مشاكل تزامن
+          // استيراد UserSession في الأعلى
+          // import 'package:chronic_diseases/core/user_session.dart';
+          await UserSession.saveUsername(username);
+        }
         emit(LoginSuccessState());
       } else {
         emit(

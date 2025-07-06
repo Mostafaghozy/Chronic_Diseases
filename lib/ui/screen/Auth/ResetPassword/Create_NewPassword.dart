@@ -2,6 +2,7 @@ import 'package:chronic_diseases/models/CreatePassword_Code/cubit.dart';
 import 'package:chronic_diseases/models/CreatePassword_Code/state.dart';
 import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/Button_widget.dart';
 import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/Password_Widget.dart';
+import 'package:chronic_diseases/ui/screen/Auth/login/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -52,9 +53,7 @@ class CreateNewPassword extends StatelessWidget {
             if (state is ResetPasswordSuccess) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const Doneresetpassword(),
-                ),
+                MaterialPageRoute(builder: (context) => Loginscreen()),
               );
               // Show snackbar after navigation
               Future.delayed(const Duration(milliseconds: 300), () {
