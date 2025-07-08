@@ -166,7 +166,7 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     DashedCircularProgressBar.aspectRatio(
-                      aspectRatio: 1, // width ÷ height
+                      aspectRatio: 1.5, // width ÷ height
                       valueNotifier: _valueNotifier,
                       progress: riskPercentage,
                       startAngle: 225,
@@ -189,17 +189,17 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w300,
-                                  fontSize: 60,
+                                  fontSize: 30,
                                 ),
                               ),
-                              Text(
-                                'Risk Level',
-                                style: const TextStyle(
-                                  color: Color(0xff999999),
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                ),
-                              ),
+                              // Text(
+                              //   'Risk Level',
+                              //   style: const TextStyle(
+                              //     color: Color(0xff999999),
+                              //     fontWeight: FontWeight.w400,
+                              //     fontSize: 16,
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

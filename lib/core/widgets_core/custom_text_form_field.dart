@@ -30,6 +30,7 @@ class CustomTextFormField extends StatelessWidget {
           style: Styles.textStyle14.copyWith(
             color: AppColor.kBlackColor,
             fontWeight: FontWeight.w700,
+            fontFamily: "Nunito",
           ),
         ),
         const SizedBox(height: 16),

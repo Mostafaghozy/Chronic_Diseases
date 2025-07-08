@@ -3,6 +3,7 @@ import 'package:chronic_diseases/core/widgets_core/custom_text_form_field.dart';
 import 'package:chronic_diseases/models/checkSymptoms/cubit.dart';
 import 'package:chronic_diseases/models/checkSymptoms/state.dart';
 import 'package:chronic_diseases/models/checkSymptoms/prediction_request_model.dart';
+import 'package:chronic_diseases/ui/Widgets/Auth&Onboarding/selectionWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -213,14 +214,37 @@ class _CheckSymptomsHealthMetricsState
                   style: Styles.textStyle24.copyWith(
                     color: Color(0xff22292E),
                     fontWeight: FontWeight.w900,
+                    fontFamily: "Nunito",
                   ),
                 ),
                 SizedBox(height: 32),
-                CustomTextFormField(
-                  title: "Gender",
-                  hintText: "Male or Female",
-                  controller: _genderController,
-                  validator: (value) => _validateRequired(value, "Gender"),
+                // Gender Dropdown with Title
+                SizedBox(
+                  width: 370,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Gender",
+                        style: Styles.textStyle14.copyWith(
+                          color: Color(0xff22292E),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                          fontFamily: "Nunito",
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      SimpleDropdown(
+                        hintText: 'Choose your Gender',
+                        items: const ['Male', 'Female'],
+                        onChanged: (value) {
+                          setState(() {
+                            _genderController.text = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 24),
                 CustomTextFormField(
@@ -232,26 +256,68 @@ class _CheckSymptomsHealthMetricsState
                 ),
                 SizedBox(height: 24),
                 CustomTextFormField(
-                  title: "Hypertension",
-                  hintText: "blood pressure (e.g., 140/90)",
+                  title: "pressure",
+                  hintText: "Enter blood pressure (e.g., 140/90)",
                   controller: _hypertensionController,
                   validator: _validateHypertension,
                 ),
                 SizedBox(height: 24),
-                CustomTextFormField(
-                  title: "Heart Disease",
-                  hintText: "Yes or No",
-                  controller: _heartDiseaseController,
-                  validator: (value) =>
-                      _validateRequired(value, "Heart Disease"),
+                // Heart Disease Dropdown with Title
+                SizedBox(
+                  width: 370,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Heart Disease",
+                        style: Styles.textStyle14.copyWith(
+                          color: Color(0xff22292E),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                          fontFamily: "Nunito",
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      SimpleDropdown(
+                        hintText: 'Do you have Heart Disease?',
+                        items: const ['Yes', 'No'],
+                        onChanged: (value) {
+                          setState(() {
+                            _heartDiseaseController.text = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 24),
-                CustomTextFormField(
-                  title: "Smoking History",
-                  hintText: "never, former, current, regular",
-                  controller: _smokingHistoryController,
-                  validator: (value) =>
-                      _validateRequired(value, "Smoking History"),
+                // Smoking History Dropdown with Title
+                SizedBox(
+                  width: 370,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Smoking History",
+                        style: Styles.textStyle14.copyWith(
+                          color: Color(0xff22292E),
+                          fontWeight: FontWeight.w900,
+                          fontFamily: "Nunito",
+                          fontSize: 15,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      SimpleDropdown(
+                        hintText: ' select your smoking level',
+                        items: const ['never', 'former', 'current', 'regular'],
+                        onChanged: (value) {
+                          setState(() {
+                            _smokingHistoryController.text = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 24),
                 CustomTextFormField(

@@ -39,19 +39,14 @@ class _SimpleDropdownState extends State<SimpleDropdown> {
         log('Selected value: $value');
       },
 
-      // ✅ هنا مكان decoration الصحيح
       decoration: CustomDropdownDecoration(
         prefixIcon: widget.iconPath != null
-            ? SvgPicture.asset(
-                widget.iconPath!,
-              )
-            : null, // 👈 لو مافيش أيقونة — مافيش prefixIcon
+            ? SvgPicture.asset(widget.iconPath!)
+            : null,
 
-        closedFillColor: Colors.grey[200],
+        closedFillColor: Color(0xfff6f6f6),
         closedBorderRadius: BorderRadius.circular(25),
-        closedBorder: Border.all(
-          color: Colors.white,
-        ),
+        closedBorder: Border.all(color: Colors.white),
       ),
     );
   }
