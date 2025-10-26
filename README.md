@@ -222,7 +222,7 @@ If you'd like, I can also:
 
 ## Design preview
 
-Screenshots and UI previews from the app/design system. These live in the `assets/` folder — if you prefer a different location, tell me and I will move them.
+Screenshots and UI previews from the app/design system.
 ![logoApp](assets/logoApp.png)
 
 
