@@ -1,231 +1,231 @@
-# Chronic Diseases (Flutter)
+# Chronic Diseases
 
-A cross-platform Flutter application for managing chronic diseases such as Diabetes by tracking health metrics (e.g., glucose, blood pressure, weight), scheduling and managing appointments, logging symptoms, and receiving actionable notifications and insights. The app provides user onboarding, authentication, symptom logging, notifications, and guided health information. It is structured with a clean separation of core utilities, UI, models, and platform targets, following Clean Architecture and Bloc for state management, and integrates with a REST API for data.
+[![Flutter Version](https://img.shields.io/badge/Flutter-%3E%3D3.9.0-blue.svg)](https://flutter.dev/)
+[![Dart Version](https://img.shields.io/badge/Dart-%3E%3D3.9.0-blue.svg)](https://dart.dev/)
 
-## Table of Contents
-- Features
-- Use Cases and Personas
-- Domains and Data Model
-- Architecture and Data Flow
-- Project Structure
-- Tech Stack
-- Getting Started
-- Running the App
-- Building for Release
-- Assets and Fonts
-- Routing
-- Notifications
-- State Management Conventions
-- Error Handling and Offline Strategy
-- Security and Privacy
-- Roadmap
-- Code Style and Linting
-- Testing
-- Troubleshooting
+A cross-platform Flutter application focused on chronic disease management and health insights. This repository contains the app source, assets, and platform targets for Android, iOS, Web and desktop platforms.
 
-## Features
-- Manage chronic diseases (e.g., Diabetes) with tracked metrics: glucose, blood pressure, weight, medication adherence
-- Appointments management: schedule, reminders, and follow-ups
-- Logging symptoms and viewing trends/charts over time (e.g., 7/30/90-day views)
-- Personalized reminders for meds, check-ups, and tasks
-- Educational content and tips surfaced contextually
-- Multi-platform support: Android, iOS, Web, Windows, macOS, Linux
-- Onboarding and authentication flows (Sign Up, Login, Reset Password, Create Password Code)
-- Centralized theming and responsive UI
-- Clean Architecture + Bloc state management
-- REST API integration to sync across devices
+## Key Features
+
+### Core Functionality
+- Symptom logging with date/time and optional notes
+- Symptom trend views and simple charts for self-monitoring
+- Guided health information and educational widgets
+- Local notification reminders for medication/monitoring
+- Onboarding and authentication flows (Sign Up, Login, Reset Password)
+- Persistent local storage for sessions and user data
+
+### UX & Accessibility
+- Responsive layouts for phones, tablets and web
+- Themed (light/dark) styling via centralized `AppThemes`
+- Reusable UI components in `lib/core/widgets_core`
+- Asset-driven icons and images for consistent branding
+
+### Privacy & Data
+- Primary storage: local device storage (no backend by default)
+- Explicit note: review any added analytics, cloud sync, or push services before enabling them
 
 ## Project Structure
-The project follows a modular structure. Key directories:
 
-- lib/
-  - core/
-    - utils/: Core utilities/helpers
-    - widgets_core/: Reusable core widgets
-    - app_color.dart: Central color palette
-    - assets.dart: Asset path constants
-    - styles.dart: Text and theme styles
-    - user_session.dart: User session management helpers
-  - models/
-    - Notification/notifications.dart: Notification data models
-    - checkSymptoms/, Login/, SignUp/, resetPassword/, CreatePassword_Code/: Feature-related models
-  - ui/
-    - screen/: App screens
-    - Widgets/: Reusable feature widgets
-  - app_routes.dart: Central route configuration
-  - main.dart: App entry point
+```
+lib/
+  core/
+    app_color.dart
+    assets.dart
+    styles.dart
+    user_session.dart
+    utils/
+    widgets_core/
+  models/
+    Notification/notifications.dart
+    checkSymptoms/
+    Login/
+    SignUp/
+    resetPassword/
+    CreatePassword_Code/
+  ui/
+    screen/
+    Widgets/
+  app_routes.dart
+  main.dart
 
-Platform folders and configuration also exist for android/, ios/, web/, windows/, macos/, linux/.
-
-## Use Cases and Personas
-- Patient: track daily metrics (glucose, BP), receive reminders, log symptoms, and keep appointments organized.
-- Caregiver: review trends and reminders to support patient adherence.
-- Clinician (future): review summarized metrics and adherence for remote monitoring.
-
-## Domains and Data Model
-- Metrics: glucose readings, blood pressure, weight, heart rate
-- Medications: name, dosage, schedule, adherence logs
-- Appointments: date/time, location/provider, notes, reminders
-- Symptoms: type, severity, notes, attachments (optional)
-- Notifications: local reminders, push (optional)
-
-Note: Data model types are expressed as Dart entities (domain layer) mapped to DTOs (data layer) for REST.
-
-## Architecture and Data Flow
-- Presentation: Widgets -> Bloc/Cubit -> UI states
-- Domain: UseCases (interactors) operating on Entities/Value Objects
-- Data: Repositories -> Data Sources (REST API, local cache)
-- Cross-cutting: error handling, logging, configuration
-
-Flow example (Add glucose reading):
-Widget -> Bloc Event (AddReading) -> UseCase (AddReadingUseCase) -> Repository.addReading -> RemoteDataSource.post -> Bloc emits Loading/Success/Error -> UI updates
-
-## Tech Stack
-- Flutter (Dart)
-- Bloc (flutter_bloc) for state management
-- Clean Architecture (domain, data, presentation layers)
-- REST API integration (e.g., via http/dio)
-- Material Design components
-- Custom fonts and assets
-
-Dependencies are defined in pubspec.yaml. Use Flutter stable channel unless otherwise specified.
+android/ ios/ web/ windows/ macos/ linux/  # platform folders
+assets/  # icons, images
+fonts/
+test/
+```
 
 ## Getting Started
-1. Prerequisites
-   - Flutter SDK installed and configured
-   - Dart SDK (bundled with Flutter)
-   - Platform toolchains as needed (Android Studio/Xcode, etc.)
 
-2. Clone and install dependencies
-   - Open the project directory
-   - Fetch packages:
-     flutter pub get
+### Prerequisites
+- Flutter SDK (stable channel)
+- Dart (bundled with Flutter)
+- For Android: Android SDK + emulator or device
+- For iOS: Xcode (macOS only)
 
-3. Recommended: Run Flutter doctor and fix any issues
-     flutter doctor -v
+### Install dependencies
 
-## Running the App
-Run on any connected device/emulator or in the browser.
+Open a terminal in the project root and run (PowerShell example for Windows):
 
-- Android:
-  flutter run -d android
+```powershell
+flutter pub get
+```
 
-- iOS (requires macOS + Xcode):
-  flutter run -d ios
+### Validate environment
 
-- Web:
-  flutter run -d chrome
+```powershell
+flutter doctor -v
+flutter --version
+```
 
-- Windows:
-  flutter run -d windows
+## How to run (examples)
 
-- macOS:
-  flutter run -d macos
+Windows / PowerShell (recommended for local dev on Windows):
 
-- Linux:
-  flutter run -d linux
+```powershell
+# Run on connected Windows device or desktop
+flutter run -d windows
+
+# Run on Android emulator/device
+flutter run -d android
+
+# Run on Chrome for web
+flutter run -d chrome
+```
+
+macOS / iOS (mac-only):
+
+```bash
+# iOS simulator
+flutter run -d ios
+```
 
 If multiple devices are connected:
-  flutter devices
-  flutter run -d <device_id>
+
+```powershell
+flutter devices
+flutter run -d <device_id>
+```
 
 ## Building for Release
+
 - Android (APK):
-  flutter build apk --release
+
+```powershell
+flutter build apk --release
+```
 
 - Android (AppBundle):
-  flutter build appbundle --release
 
-- iOS:
-  flutter build ios --release
-  Then use Xcode Organizer for App Store distribution.
+```powershell
+flutter build appbundle --release
+```
 
 - Web:
-  flutter build web --release
-  Outputs to build/web.
 
-- Windows:
-  flutter build windows --release
+```powershell
+flutter build web --release
+```
 
-- macOS:
-  flutter build macos --release
+- Windows/macOS/Linux:
 
-- Linux:
-  flutter build linux --release
-
-Refer to platform-specific signing guidelines (keystore for Android, provisioning profiles for iOS).
+```powershell
+flutter build windows --release
+flutter build macos --release
+flutter build linux --release
+```
 
 ## Assets and Fonts
-Assets are located under assets/ and fonts/ and declared in pubspec.yaml. Examples include:
-- assets/icons/... (SVGs and PNGs)
-- assets/images/...
-- fonts/Nunito-*.ttf
 
-To reference assets in code, use centralized constants in lib/core/assets.dart where available. Example:
-  Image.asset(Assets.images.heartLogo)
+Assets live under the `assets/` folder and are declared in `pubspec.yaml`. Fonts are in `fonts/`—the project currently uses Nunito-style fonts (see `fonts/`). Use `lib/core/assets.dart` for centralized asset constants.
 
-Ensure you run:
-  flutter pub get
-after modifying pubspec.yaml.
+After changing `pubspec.yaml`, run:
+
+```powershell
+flutter pub get
+```
 
 ## Routing
-Routes are centralized in lib/app_routes.dart. Use named routes for navigation to keep transitions consistent and decoupled from widget implementations.
 
-Example:
-  Navigator.of(context).pushNamed(AppRoutes.someScreen)
+Named routes are managed in `lib/app_routes.dart`. Use `Navigator.of(context).pushNamed(AppRoutes.someScreen)` for navigation.
 
 ## Notifications
-Notification models are in lib/models/Notification/notifications.dart. Platform integration for displaying notifications may require additional plugins and platform-specific setup. Verify permissions and initialization when adding local or push notifications.
 
-## State Management Conventions
-- Use Cubit for simple, localized state; use Bloc for multi-event flows
-- States are immutable; prefer sealed classes/patterns via union-like classes
-- Side-effects isolated in use cases and repositories; avoid business logic in Widgets
+Notification models are located in `lib/models/Notification/notifications.dart`. Platform-specific initialization is required for local/push notifications. Check plugin docs before enabling push services.
 
-## Error Handling and Offline Strategy
-- Errors propagated as domain-level failures (e.g., NetworkFailure, ValidationFailure)
-- Show user-friendly messages with retry where applicable
-- Optional: cache recent metrics and appointments locally for read-only offline mode
-- Debounce/batch writes and sync when connectivity is restored
+## Code Style, Linting & Testing
 
-## Security and Privacy
-- Store auth tokens securely (Keychain/Keystore/secure storage)
-- Use HTTPS for all API traffic; avoid logging PII
-- Consider anonymized analytics; obtain consent where required
-- Follow least-privilege for permissions (notifications, storage)
+- Static analysis: `flutter analyze`
+- Format: `dart format .`
+- Unit & widget tests: `flutter test`
 
-## Roadmap
-- Charts for metrics trends with export/share
-- Push notifications integration and cloud sync
-- Clinician dashboard integration
-- Localization and accessibility enhancements
-- Dark mode and theming polish
+Example (PowerShell):
 
-## Code Style and Linting
-This project includes analysis_options.yaml. Follow Dart/Flutter best practices:
-- Use const where possible
-- Keep widgets small and composable
-- Place shared styles in styles.dart
+```powershell
+flutter analyze
+dart format .
+flutter test
+```
 
-Run static analysis:
-  flutter analyze
+There is a basic widget test in `test/widget_test.dart` to get started.
 
-Format code:
-  dart format .
+## Development notes
 
-## Testing
-Unit and widget tests belong in test/. A default widget test exists:
-- test/widget_test.dart
+- Keep widgets small and composable; shared styles belong in `lib/core/styles.dart`.
+- Use constants in `lib/core/assets.dart` instead of hard-coded paths.
+- The symptom logging flow and notification reminders are intentionally local-first for privacy.
 
-Run tests:
-  flutter test
+## Architecture & Technical Details
 
-## Troubleshooting
-- Assets not found: Confirm paths in pubspec.yaml and run flutter pub get.
-- iOS build issues: Run pod install in ios/ (on macOS) and open the workspace:
-    cd ios && pod install && cd -
-- Web CORS or cache issues: Try flutter run -d chrome --web-renderer html and clear cache.
-- Android build fails: Ensure a valid Android SDK/NDK is installed and JAVA_HOME set.
+- Code aims for a modular architecture: `core` + `models` + `ui` with feature folders under `models` and `ui`.
+- State: simple local state management; consider Riverpod or Provider for larger-scale refactors.
+- Platform integrations (notifications, local storage) live in platform folders and the appropriate platform channel wrappers.
+
+## Roadmap (suggested)
+
+- Short-term
+  - Add optional secure cloud sync (user opt-in)
+  - Improve symptom analytics UI (better charts)
+  - Add export/import of logs (CSV)
+
+- Medium-term
+  - Integrate secure backend for clinician sharing (opt-in)
+  - Add onboarding analytics (privacy-first)
+  - Improve accessibility (a11y)
+
+- Long-term
+  - Connect with device APIs (Bluetooth glucometers, wearables) via optional plugins
+  - Add multi-user / family account features
+
+## Contributing
+
+Please follow the project's conventions. Create issues and PRs against `main`. If you plan to contribute, add a short description of your change and include tests where relevant. If you want, add a `CONTRIBUTING.md` to document workflow and code style.
 
 ## License
-Proprietary. All rights reserved unless a license is added.
+
+Proprietary. All rights reserved unless a license is added. If you want to open-source the app, consider adding an OSI-approved license (MIT, Apache-2.0, etc.).
+
+## Acknowledgments
+
+- Flutter team and the Dart ecosystem
+- Open-source plugin authors
+
+---
+
+If you'd like, I can also:
+- Add badges (CI, code coverage) at the top of this file
+- Add a short "How to run on Windows (PowerShell)" section with common troubleshooting steps
+- Create a `README.md.bak` backup before edits
+
+
+© 2025 Chronic Diseases. All rights reserved.
+
+## Design preview
+
+Screenshots and UI previews from the app/design system. These live in the `assets/` folder — if you prefer a different location, tell me and I will move them.
+
+![Home preview](assets/mediva LOGO GREEN.svg)
+
+![logoApp](assets/logoApp.png)
+
+![Check Symptoms preview](assets/A Smarter Path to Better Health.png)
