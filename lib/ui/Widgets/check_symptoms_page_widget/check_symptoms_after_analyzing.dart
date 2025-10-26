@@ -62,7 +62,7 @@ class CheckSymptomsAfterAnalyzing extends StatelessWidget {
           );
         }
 
-        if (!(state is CheckSymptomsSuccess)) {
+        if (state is! CheckSymptomsSuccess) {
           return const Center(
             child: CircularProgressIndicator(color: AppColor.kPrimaryColor),
           );

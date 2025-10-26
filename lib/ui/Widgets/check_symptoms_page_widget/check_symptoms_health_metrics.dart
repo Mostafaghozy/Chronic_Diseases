@@ -256,8 +256,8 @@ class _CheckSymptomsHealthMetricsState
                 ),
                 SizedBox(height: 24),
                 CustomTextFormField(
-                  title: "pressure",
-                  hintText: "Enter blood pressure (e.g., 140/90)",
+                  title: "Hypertenstion",
+                  hintText: "systolic/diastolic (mmHg)",
                   controller: _hypertensionController,
                   validator: _validateHypertension,
                 ),
