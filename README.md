@@ -222,7 +222,7 @@ If you'd like, I can also:
 
 ## Design preview
 
-Screenshots and UI previews from the app/design system.
+
 ![logoApp](assets/logoApp.png)
 ![OnBoarding](<assets/Frame1.png>)
 ![Ai](<assets/Frame2.png>)
