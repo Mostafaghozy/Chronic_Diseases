@@ -223,9 +223,6 @@ If you'd like, I can also:
 ## Design preview
 
 Screenshots and UI previews from the app/design system. These live in the `assets/` folder — if you prefer a different location, tell me and I will move them.
-
-![Home preview](assets/medivaLOGOGREEN.svg)
-
 ![logoApp](assets/logoApp.png)
 
-![Check Symptoms preview](assets/ASmarterPathtoBetterHealth.png)
+
