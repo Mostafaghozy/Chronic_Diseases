@@ -59,9 +59,7 @@ test/
 ## Design preview
 
 
-![logoApp](assets/logoApp.png)
-![OnBoarding](<assets/Frame1.png>)
-![Ai](<assets/Frame2.png>)
-![HomePage](assets/Frame.png)
+![logoApp](assets/logoApp.png)![OnBoarding](<assets/Frame1.png>)
+![Ai](<assets/Frame2.png>)![HomePage](assets/Frame.png)
 
 
