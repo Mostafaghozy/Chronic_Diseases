@@ -55,11 +55,11 @@ fonts/
 test/
 ```
 
+## 🎨 Design Preview
 
-## Design preview
+| Logo | OnBoarding | AI Assistant | Home Page |
+|------|-------------|---------------|------------|
+| ![Logo](assets/logoApp.png) | ![OnBoarding](assets/Frame1.png) | ![AI](assets/Frame2.png) | ![Home](assets/Frame.png) |
 
-
-![logoApp](assets/logoApp.png)![OnBoarding](<assets/Frame1.png>)
-![Ai](<assets/Frame2.png>)![HomePage](assets/Frame.png)
 
 
